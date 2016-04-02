@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import cn.com.jy.hotel.utils.BigDecimalUtils;
+
 /** 
 * @ClassName: RoomPayMethod 
 * @Description: 房间计费方案 
@@ -114,7 +116,7 @@ public class RoomPayMethod implements Serializable{
     }
 
     public BigDecimal getStartupPrice() {
-        return startupPrice;
+        return BigDecimalUtils.deal(startupPrice);
     }
 
     public void setStartupPrice(BigDecimal startupPrice) {
@@ -130,7 +132,7 @@ public class RoomPayMethod implements Serializable{
     }
 
     public BigDecimal getStandardPrice() {
-        return standardPrice;
+        return BigDecimalUtils.deal(standardPrice);
     }
 
     public void setStandardPrice(BigDecimal standardPrice) {
@@ -146,7 +148,7 @@ public class RoomPayMethod implements Serializable{
     }
 
     public BigDecimal getMinPrice() {
-        return minPrice;
+        return BigDecimalUtils.deal(minPrice);
     }
 
     public void setMinPrice(BigDecimal minPrice) {
@@ -186,7 +188,7 @@ public class RoomPayMethod implements Serializable{
     }
 
     public BigDecimal getDayPrice() {
-        return dayPrice;
+        return BigDecimalUtils.deal(dayPrice);
     }
 
     public void setDayPrice(BigDecimal dayPrice) {

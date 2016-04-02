@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import cn.com.jy.hotel.utils.BigDecimalUtils;
+
 /**
  * @ClassName: Income_Month
  * @Description: 每月收益
@@ -32,6 +34,7 @@ public class Income_Month implements Serializable{
 	/**
 	 * 利润
 	 */
+	@SuppressWarnings("unused")
 	private BigDecimal profit = new BigDecimal(0.00);
 
 	public Date getDayTime() {
@@ -43,7 +46,7 @@ public class Income_Month implements Serializable{
 	}
 
 	public BigDecimal getIncome() {
-		return income;
+		return BigDecimalUtils.deal(income);
 	}
 
 	public void setIncome(BigDecimal income) {
@@ -51,7 +54,7 @@ public class Income_Month implements Serializable{
 	}
 
 	public BigDecimal getCost() {
-		return cost;
+		return BigDecimalUtils.deal(cost);
 	}
 
 	public void setCost(BigDecimal cost) {
@@ -59,7 +62,7 @@ public class Income_Month implements Serializable{
 	}
 
 	public BigDecimal getProfit() {
-		return profit;
+		return BigDecimalUtils.deal(income.subtract(cost));
 	}
 
 	public void setProfit(BigDecimal profit) {

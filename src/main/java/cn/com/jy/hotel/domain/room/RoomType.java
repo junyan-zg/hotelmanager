@@ -2,6 +2,8 @@ package cn.com.jy.hotel.domain.room;
 
 import java.math.BigDecimal;
 
+import cn.com.jy.hotel.utils.BigDecimalUtils;
+
 /** 
 * @ClassName: RoomType 
 * @Description: 房间类型表，如单人房双人房 
@@ -57,7 +59,7 @@ public class RoomType {
     }
 
     public BigDecimal getDeposit() {
-        return deposit;
+        return BigDecimalUtils.deal(deposit);
     }
 
     public void setDeposit(BigDecimal deposit) {

@@ -3,6 +3,8 @@ package cn.com.jy.hotel.domain.guest;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import cn.com.jy.hotel.utils.BigDecimalUtils;
+
 /**
  * 
  * @ClassName: GoodsSale
@@ -56,7 +58,7 @@ public class GoodsSale implements Serializable {
 	}
 
 	public BigDecimal getCost() {
-		return cost;
+		return BigDecimalUtils.deal(cost);
 	}
 
 	public void setCost(BigDecimal cost) {
@@ -72,7 +74,7 @@ public class GoodsSale implements Serializable {
 	}
 
 	public BigDecimal getSalePrice() {
-		return salePrice;
+		return BigDecimalUtils.deal(salePrice);
 	}
 
 	public void setSalePrice(BigDecimal salePrice) {

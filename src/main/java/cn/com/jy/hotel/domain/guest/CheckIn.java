@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import cn.com.jy.hotel.utils.BigDecimalUtils;
+
 /**
  * @ClassName: CheckIn
  * @Description: 住宿
@@ -96,7 +98,7 @@ public class CheckIn implements Serializable {
 	}
 
 	public BigDecimal getAllCost() {
-		return allCost;
+		return BigDecimalUtils.deal(allCost);
 	}
 
 	public void setAllCost(BigDecimal allCost) {
@@ -104,7 +106,7 @@ public class CheckIn implements Serializable {
 	}
 
 	public BigDecimal getVipPay() {
-		return vipPay;
+		return BigDecimalUtils.deal(vipPay);
 	}
 
 	public void setVipPay(BigDecimal vipPay) {
@@ -112,7 +114,7 @@ public class CheckIn implements Serializable {
 	}
 
 	public BigDecimal getCashPay() {
-		return cashPay;
+		return BigDecimalUtils.deal(cashPay);
 	}
 
 	public void setCashPay(BigDecimal cashPay) {
@@ -120,7 +122,7 @@ public class CheckIn implements Serializable {
 	}
 
 	public BigDecimal getWebPay() {
-		return webPay;
+		return BigDecimalUtils.deal(webPay);
 	}
 
 	public void setWebPay(BigDecimal webPay) {
@@ -128,7 +130,7 @@ public class CheckIn implements Serializable {
 	}
 
 	public BigDecimal getShouldPay() {
-		return shouldPay;
+		return BigDecimalUtils.deal(shouldPay);
 	}
 
 	public void setShouldPay(BigDecimal shouldPay) {
@@ -136,7 +138,7 @@ public class CheckIn implements Serializable {
 	}
 
 	public BigDecimal getHadPay() {
-		return hadPay;
+		return BigDecimalUtils.deal(hadPay);
 	}
 
 	public void setHadPay(BigDecimal hadPay) {
@@ -160,7 +162,7 @@ public class CheckIn implements Serializable {
 	}
 
 	public BigDecimal getDeposit() {
-		return deposit;
+		return BigDecimalUtils.deal(deposit);
 	}
 
 	public void setDeposit(BigDecimal deposit) {
@@ -168,7 +170,7 @@ public class CheckIn implements Serializable {
 	}
 
 	public BigDecimal getDeposit_return() {
-		return deposit_return;
+		return BigDecimalUtils.deal(deposit_return);
 	}
 
 	public void setDeposit_return(BigDecimal deposit_return) {

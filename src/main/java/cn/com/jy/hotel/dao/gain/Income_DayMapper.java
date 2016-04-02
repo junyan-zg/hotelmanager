@@ -8,10 +8,12 @@ public interface Income_DayMapper {
 
     int insert(Income_Day record);
 
+    @Deprecated
     int insertSelective(Income_Day record);
 
     Income_Day selectByPrimaryKey(Date dayTime);
 
+    @Deprecated
     int updateByPrimaryKeySelective(Income_Day record);
 
     int updateByPrimaryKey(Income_Day record);

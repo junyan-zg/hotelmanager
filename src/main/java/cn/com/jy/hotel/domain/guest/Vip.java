@@ -3,6 +3,8 @@ package cn.com.jy.hotel.domain.guest;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import cn.com.jy.hotel.utils.BigDecimalUtils;
+
 /**
  * @ClassName: Vip
  * @Description: 会员表
@@ -63,7 +65,7 @@ public class Vip implements Serializable {
 	}
 
 	public BigDecimal getBlances() {
-		return blances;
+		return BigDecimalUtils.deal(blances);
 	}
 
 	public void setBlances(BigDecimal blances) {

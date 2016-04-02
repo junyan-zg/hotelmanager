@@ -8,10 +8,12 @@ public interface Income_MonthMapper {
 
     int insert(Income_Month record);
 
+    @Deprecated
     int insertSelective(Income_Month record);
 
     Income_Month selectByPrimaryKey(Date dayTime);
 
+    @Deprecated
     int updateByPrimaryKeySelective(Income_Month record);
 
     int updateByPrimaryKey(Income_Month record);
