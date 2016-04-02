@@ -1,5 +1,6 @@
 package cn.com.jy.hotel.domain.guest;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -9,7 +10,8 @@ import java.math.BigDecimal;
  * @date 2016年4月2日 上午5:32:47
  * 
  */
-public class Vip {
+public class Vip implements Serializable {
+	private static final long serialVersionUID = 6610843323462671734L;
 	private Long id;
 	/**
 	 * 会员姓名
@@ -18,7 +20,7 @@ public class Vip {
 	/**
 	 * 会员余额
 	 */
-	private BigDecimal blances;
+	private BigDecimal blances = new BigDecimal(0.00);
 	/**
 	 * 会员身份证号码
 	 */
@@ -26,7 +28,7 @@ public class Vip {
 	/**
 	 * 会员状态(0有效1无效2暂停)
 	 */
-	private Byte status;
+	private Byte status = 0;
 	/**
 	 * 电话号码即会员号码
 	 */
@@ -38,7 +40,7 @@ public class Vip {
 	/**
 	 * 会员积分
 	 */
-	private Long points;
+	private Long points = 0l;
 	/**
 	 * 备注
 	 */

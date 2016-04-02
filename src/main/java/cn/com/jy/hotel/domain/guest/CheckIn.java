@@ -1,5 +1,6 @@
 package cn.com.jy.hotel.domain.guest;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -10,7 +11,8 @@ import java.util.Date;
  * @date 2016年4月2日 上午4:54:34
  * 
  */
-public class CheckIn {
+public class CheckIn implements Serializable {
+	private static final long serialVersionUID = 4082815540664818695L;
 	private Long id;
 	/**
 	 * 状态(0：正常入住，1：已结账；2：挂账)
@@ -27,15 +29,15 @@ public class CheckIn {
 	/**
 	 * 会员余额支付
 	 */
-	private BigDecimal vipPay;
+	private BigDecimal vipPay = new BigDecimal(0.00);
 	/**
 	 * 现金支付
 	 */
-	private BigDecimal cashPay;
+	private BigDecimal cashPay = new BigDecimal(0.00);
 	/**
 	 * 网银支付
 	 */
-	private BigDecimal webPay;
+	private BigDecimal webPay = new BigDecimal(0.00);
 	/**
 	 * 打折后应付（此项应为三项支付之和）(由系统生成)
 	 */
@@ -59,7 +61,7 @@ public class CheckIn {
 	/**
 	 * 押金返还
 	 */
-	private BigDecimal deposit_return;
+	private BigDecimal deposit_return = new BigDecimal(0.00);
 	/**
 	 * 会员id（如果是会员则填写）
 	 */

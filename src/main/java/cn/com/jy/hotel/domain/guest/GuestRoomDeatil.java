@@ -1,5 +1,6 @@
 package cn.com.jy.hotel.domain.guest;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,8 @@ import java.util.Date;
  * @date 2016年4月2日 上午5:30:45
  * 
  */
-public class GuestRoomDeatil {
+public class GuestRoomDeatil implements Serializable {
+	private static final long serialVersionUID = -7823251374770406003L;
 	private Long id;
 	/**
 	 * 住宿表id

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jy.hotel.dao.room.BookroomDetailMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.jy.hotel.domain.room.BookroomDetail" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="bookroom_type_id" property="bookroom_type_id" jdbcType="BIGINT" />
+    <result column="room_id" property="room_id" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, bookroom_type_id, room_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from r_bookroom_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from r_bookroom_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.jy.hotel.domain.room.BookroomDetail" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into r_bookroom_detail (bookroom_type_id, room_id)
+    values (#{bookroom_type_id,jdbcType=BIGINT}, #{room_id,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.jy.hotel.domain.room.BookroomDetail" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into r_bookroom_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookroom_type_id != null" >
+        bookroom_type_id,
+      </if>
+      <if test="room_id != null" >
+        room_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookroom_type_id != null" >
+        #{bookroom_type_id,jdbcType=BIGINT},
+      </if>
+      <if test="room_id != null" >
+        #{room_id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.jy.hotel.domain.room.BookroomDetail" >
+    update r_bookroom_detail
+    <set >
+      <if test="bookroom_type_id != null" >
+        bookroom_type_id = #{bookroom_type_id,jdbcType=BIGINT},
+      </if>
+      <if test="room_id != null" >
+        room_id = #{room_id,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.jy.hotel.domain.room.BookroomDetail" >
+    update r_bookroom_detail
+    set bookroom_type_id = #{bookroom_type_id,jdbcType=BIGINT},
+      room_id = #{room_id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

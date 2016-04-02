@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jy.hotel.dao.room.RoomPayMethodMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.jy.hotel.domain.room.RoomPayMethod" >
+    <id column="id" property="id" jdbcType="SMALLINT" />
+    <result column="room_type_id" property="room_type_id" jdbcType="SMALLINT" />
+    <result column="pay_method_name" property="pay_method_name" jdbcType="VARCHAR" />
+    <result column="startupTime" property="startupTime" jdbcType="INTEGER" />
+    <result column="startupPrice" property="startupPrice" jdbcType="DECIMAL" />
+    <result column="standardTime" property="standardTime" jdbcType="INTEGER" />
+    <result column="standardPrice" property="standardPrice" jdbcType="DECIMAL" />
+    <result column="minTime" property="minTime" jdbcType="INTEGER" />
+    <result column="minPrice" property="minPrice" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="payType" property="payType" jdbcType="TINYINT" />
+    <result column="checkInTime" property="checkInTime" jdbcType="TIMESTAMP" />
+    <result column="CheckOutTime" property="checkOutTime" jdbcType="TIMESTAMP" />
+    <result column="dayPrice" property="dayPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, room_type_id, pay_method_name, startupTime, startupPrice, standardTime, standardPrice, 
+    minTime, minPrice, status, payType, checkInTime, CheckOutTime, dayPrice
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from r_room_pay_method
+    where id = #{id,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from r_room_pay_method
+    where id = #{id,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.jy.hotel.domain.room.RoomPayMethod" >
+    <selectKey resultType="java.lang.Short" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into r_room_pay_method (room_type_id, pay_method_name, startupTime, 
+      startupPrice, standardTime, standardPrice, 
+      minTime, minPrice, status, 
+      payType, checkInTime, CheckOutTime, 
+      dayPrice)
+    values (#{room_type_id,jdbcType=SMALLINT}, #{pay_method_name,jdbcType=VARCHAR}, #{startupTime,jdbcType=INTEGER}, 
+      #{startupPrice,jdbcType=DECIMAL}, #{standardTime,jdbcType=INTEGER}, #{standardPrice,jdbcType=DECIMAL}, 
+      #{minTime,jdbcType=INTEGER}, #{minPrice,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, 
+      #{payType,jdbcType=TINYINT}, #{checkInTime,jdbcType=TIMESTAMP}, #{checkOutTime,jdbcType=TIMESTAMP}, 
+      #{dayPrice,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.jy.hotel.domain.room.RoomPayMethod" >
+    <selectKey resultType="java.lang.Short" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into r_room_pay_method
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="room_type_id != null" >
+        room_type_id,
+      </if>
+      <if test="pay_method_name != null" >
+        pay_method_name,
+      </if>
+      <if test="startupTime != null" >
+        startupTime,
+      </if>
+      <if test="startupPrice != null" >
+        startupPrice,
+      </if>
+      <if test="standardTime != null" >
+        standardTime,
+      </if>
+      <if test="standardPrice != null" >
+        standardPrice,
+      </if>
+      <if test="minTime != null" >
+        minTime,
+      </if>
+      <if test="minPrice != null" >
+        minPrice,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="payType != null" >
+        payType,
+      </if>
+      <if test="checkInTime != null" >
+        checkInTime,
+      </if>
+      <if test="checkOutTime != null" >
+        CheckOutTime,
+      </if>
+      <if test="dayPrice != null" >
+        dayPrice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="room_type_id != null" >
+        #{room_type_id,jdbcType=SMALLINT},
+      </if>
+      <if test="pay_method_name != null" >
+        #{pay_method_name,jdbcType=VARCHAR},
+      </if>
+      <if test="startupTime != null" >
+        #{startupTime,jdbcType=INTEGER},
+      </if>
+      <if test="startupPrice != null" >
+        #{startupPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="standardTime != null" >
+        #{standardTime,jdbcType=INTEGER},
+      </if>
+      <if test="standardPrice != null" >
+        #{standardPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="minTime != null" >
+        #{minTime,jdbcType=INTEGER},
+      </if>
+      <if test="minPrice != null" >
+        #{minPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=TINYINT},
+      </if>
+      <if test="checkInTime != null" >
+        #{checkInTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkOutTime != null" >
+        #{checkOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dayPrice != null" >
+        #{dayPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.jy.hotel.domain.room.RoomPayMethod" >
+    update r_room_pay_method
+    <set >
+      <if test="room_type_id != null" >
+        room_type_id = #{room_type_id,jdbcType=SMALLINT},
+      </if>
+      <if test="pay_method_name != null" >
+        pay_method_name = #{pay_method_name,jdbcType=VARCHAR},
+      </if>
+      <if test="startupTime != null" >
+        startupTime = #{startupTime,jdbcType=INTEGER},
+      </if>
+      <if test="startupPrice != null" >
+        startupPrice = #{startupPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="standardTime != null" >
+        standardTime = #{standardTime,jdbcType=INTEGER},
+      </if>
+      <if test="standardPrice != null" >
+        standardPrice = #{standardPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="minTime != null" >
+        minTime = #{minTime,jdbcType=INTEGER},
+      </if>
+      <if test="minPrice != null" >
+        minPrice = #{minPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="payType != null" >
+        payType = #{payType,jdbcType=TINYINT},
+      </if>
+      <if test="checkInTime != null" >
+        checkInTime = #{checkInTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkOutTime != null" >
+        CheckOutTime = #{checkOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dayPrice != null" >
+        dayPrice = #{dayPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.jy.hotel.domain.room.RoomPayMethod" >
+    update r_room_pay_method
+    set room_type_id = #{room_type_id,jdbcType=SMALLINT},
+      pay_method_name = #{pay_method_name,jdbcType=VARCHAR},
+      startupTime = #{startupTime,jdbcType=INTEGER},
+      startupPrice = #{startupPrice,jdbcType=DECIMAL},
+      standardTime = #{standardTime,jdbcType=INTEGER},
+      standardPrice = #{standardPrice,jdbcType=DECIMAL},
+      minTime = #{minTime,jdbcType=INTEGER},
+      minPrice = #{minPrice,jdbcType=DECIMAL},
+      status = #{status,jdbcType=TINYINT},
+      payType = #{payType,jdbcType=TINYINT},
+      checkInTime = #{checkInTime,jdbcType=TIMESTAMP},
+      CheckOutTime = #{checkOutTime,jdbcType=TIMESTAMP},
+      dayPrice = #{dayPrice,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=SMALLINT}
+  </update>
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jy.hotel.dao.room.RoomTypeMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.jy.hotel.domain.room.RoomType" >
+    <id column="id" property="id" jdbcType="SMALLINT" />
+    <result column="room_type_name" property="room_type_name" jdbcType="VARCHAR" />
+    <result column="max_people" property="max_people" jdbcType="SMALLINT" />
+    <result column="deposit" property="deposit" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.com.jy.hotel.domain.room.RoomType" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, room_type_name, max_people, deposit
+  </sql>
+  <sql id="Blob_Column_List" >
+    description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_room_type
+    where id = #{id,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from r_room_type
+    where id = #{id,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.jy.hotel.domain.room.RoomType" >
+    <selectKey resultType="java.lang.Short" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into r_room_type (room_type_name, max_people, deposit, 
+      description)
+    values (#{room_type_name,jdbcType=VARCHAR}, #{max_people,jdbcType=SMALLINT}, #{deposit,jdbcType=DECIMAL}, 
+      #{description,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.jy.hotel.domain.room.RoomType" >
+    <selectKey resultType="java.lang.Short" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into r_room_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="room_type_name != null" >
+        room_type_name,
+      </if>
+      <if test="max_people != null" >
+        max_people,
+      </if>
+      <if test="deposit != null" >
+        deposit,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="room_type_name != null" >
+        #{room_type_name,jdbcType=VARCHAR},
+      </if>
+      <if test="max_people != null" >
+        #{max_people,jdbcType=SMALLINT},
+      </if>
+      <if test="deposit != null" >
+        #{deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.jy.hotel.domain.room.RoomType" >
+    update r_room_type
+    <set >
+      <if test="room_type_name != null" >
+        room_type_name = #{room_type_name,jdbcType=VARCHAR},
+      </if>
+      <if test="max_people != null" >
+        max_people = #{max_people,jdbcType=SMALLINT},
+      </if>
+      <if test="deposit != null" >
+        deposit = #{deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.com.jy.hotel.domain.room.RoomType" >
+    update r_room_type
+    set room_type_name = #{room_type_name,jdbcType=VARCHAR},
+      max_people = #{max_people,jdbcType=SMALLINT},
+      deposit = #{deposit,jdbcType=DECIMAL},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.jy.hotel.domain.room.RoomType" >
+    update r_room_type
+    set room_type_name = #{room_type_name,jdbcType=VARCHAR},
+      max_people = #{max_people,jdbcType=SMALLINT},
+      deposit = #{deposit,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=SMALLINT}
+  </update>
+</mapper>

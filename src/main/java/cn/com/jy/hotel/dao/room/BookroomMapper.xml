@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jy.hotel.dao.room.BookroomMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.jy.hotel.domain.room.Bookroom" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="phone_call" property="phone_call" jdbcType="CHAR" />
+    <result column="phone_remain" property="phone_remain" jdbcType="CHAR" />
+    <result column="bill_status" property="bill_status" jdbcType="TINYINT" />
+    <result column="guest_status" property="guest_status" jdbcType="TINYINT" />
+    <result column="book_startTime" property="book_startTime" jdbcType="TIMESTAMP" />
+    <result column="book_endTime" property="book_endTime" jdbcType="TIMESTAMP" />
+    <result column="vip_id" property="vip_id" jdbcType="BIGINT" />
+    <result column="guest_name" property="guest_name" jdbcType="VARCHAR" />
+    <result column="ip_address" property="ip_address" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.com.jy.hotel.domain.room.Bookroom" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, phone_call, phone_remain, bill_status, guest_status, book_startTime, book_endTime, 
+    vip_id, guest_name, ip_address
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from r_bookroom
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from r_bookroom
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.jy.hotel.domain.room.Bookroom" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into r_bookroom (phone_call, phone_remain, bill_status, 
+      guest_status, book_startTime, book_endTime, 
+      vip_id, guest_name, ip_address, 
+      remark)
+    values (#{phone_call,jdbcType=CHAR}, #{phone_remain,jdbcType=CHAR}, #{bill_status,jdbcType=TINYINT}, 
+      #{guest_status,jdbcType=TINYINT}, #{book_startTime,jdbcType=TIMESTAMP}, #{book_endTime,jdbcType=TIMESTAMP}, 
+      #{vip_id,jdbcType=BIGINT}, #{guest_name,jdbcType=VARCHAR}, #{ip_address,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.jy.hotel.domain.room.Bookroom" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into r_bookroom
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="phone_call != null" >
+        phone_call,
+      </if>
+      <if test="phone_remain != null" >
+        phone_remain,
+      </if>
+      <if test="bill_status != null" >
+        bill_status,
+      </if>
+      <if test="guest_status != null" >
+        guest_status,
+      </if>
+      <if test="book_startTime != null" >
+        book_startTime,
+      </if>
+      <if test="book_endTime != null" >
+        book_endTime,
+      </if>
+      <if test="vip_id != null" >
+        vip_id,
+      </if>
+      <if test="guest_name != null" >
+        guest_name,
+      </if>
+      <if test="ip_address != null" >
+        ip_address,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="phone_call != null" >
+        #{phone_call,jdbcType=CHAR},
+      </if>
+      <if test="phone_remain != null" >
+        #{phone_remain,jdbcType=CHAR},
+      </if>
+      <if test="bill_status != null" >
+        #{bill_status,jdbcType=TINYINT},
+      </if>
+      <if test="guest_status != null" >
+        #{guest_status,jdbcType=TINYINT},
+      </if>
+      <if test="book_startTime != null" >
+        #{book_startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="book_endTime != null" >
+        #{book_endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vip_id != null" >
+        #{vip_id,jdbcType=BIGINT},
+      </if>
+      <if test="guest_name != null" >
+        #{guest_name,jdbcType=VARCHAR},
+      </if>
+      <if test="ip_address != null" >
+        #{ip_address,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.jy.hotel.domain.room.Bookroom" >
+    update r_bookroom
+    <set >
+      <if test="phone_call != null" >
+        phone_call = #{phone_call,jdbcType=CHAR},
+      </if>
+      <if test="phone_remain != null" >
+        phone_remain = #{phone_remain,jdbcType=CHAR},
+      </if>
+      <if test="bill_status != null" >
+        bill_status = #{bill_status,jdbcType=TINYINT},
+      </if>
+      <if test="guest_status != null" >
+        guest_status = #{guest_status,jdbcType=TINYINT},
+      </if>
+      <if test="book_startTime != null" >
+        book_startTime = #{book_startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="book_endTime != null" >
+        book_endTime = #{book_endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vip_id != null" >
+        vip_id = #{vip_id,jdbcType=BIGINT},
+      </if>
+      <if test="guest_name != null" >
+        guest_name = #{guest_name,jdbcType=VARCHAR},
+      </if>
+      <if test="ip_address != null" >
+        ip_address = #{ip_address,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.com.jy.hotel.domain.room.Bookroom" >
+    update r_bookroom
+    set phone_call = #{phone_call,jdbcType=CHAR},
+      phone_remain = #{phone_remain,jdbcType=CHAR},
+      bill_status = #{bill_status,jdbcType=TINYINT},
+      guest_status = #{guest_status,jdbcType=TINYINT},
+      book_startTime = #{book_startTime,jdbcType=TIMESTAMP},
+      book_endTime = #{book_endTime,jdbcType=TIMESTAMP},
+      vip_id = #{vip_id,jdbcType=BIGINT},
+      guest_name = #{guest_name,jdbcType=VARCHAR},
+      ip_address = #{ip_address,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.jy.hotel.domain.room.Bookroom" >
+    update r_bookroom
+    set phone_call = #{phone_call,jdbcType=CHAR},
+      phone_remain = #{phone_remain,jdbcType=CHAR},
+      bill_status = #{bill_status,jdbcType=TINYINT},
+      guest_status = #{guest_status,jdbcType=TINYINT},
+      book_startTime = #{book_startTime,jdbcType=TIMESTAMP},
+      book_endTime = #{book_endTime,jdbcType=TIMESTAMP},
+      vip_id = #{vip_id,jdbcType=BIGINT},
+      guest_name = #{guest_name,jdbcType=VARCHAR},
+      ip_address = #{ip_address,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

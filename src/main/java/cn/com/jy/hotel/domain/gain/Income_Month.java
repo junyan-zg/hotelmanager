@@ -1,5 +1,6 @@
 package cn.com.jy.hotel.domain.gain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -10,7 +11,9 @@ import java.util.Date;
  * @date 2016年4月2日 上午4:52:51
  * 
  */
-public class Income_Month {
+public class Income_Month implements Serializable{
+	private static final long serialVersionUID = 7202835001227452923L;
+
 	/**
 	 * 主键：月
 	 */
@@ -19,17 +22,17 @@ public class Income_Month {
 	/**
 	 * 收入
 	 */
-	private BigDecimal income;
+	private BigDecimal income = new BigDecimal(0.00);
 
 	/**
 	 * 支出
 	 */
-	private BigDecimal cost;
+	private BigDecimal cost = new BigDecimal(0.00);
 
 	/**
 	 * 利润
 	 */
-	private BigDecimal profit;
+	private BigDecimal profit = new BigDecimal(0.00);
 
 	public Date getDayTime() {
 		return dayTime;

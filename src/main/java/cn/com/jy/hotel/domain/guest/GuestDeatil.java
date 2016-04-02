@@ -1,5 +1,7 @@
 package cn.com.jy.hotel.domain.guest;
 
+import java.io.Serializable;
+
 /**
  * @ClassName: GuestDeatil
  * @Description: 住客身份详情表
@@ -7,7 +9,8 @@ package cn.com.jy.hotel.domain.guest;
  * @date 2016年4月2日 上午5:26:53
  * 
  */
-public class GuestDeatil {
+public class GuestDeatil implements Serializable {
+	private static final long serialVersionUID = -4688519820942988952L;
 	private Long id;
 	/**
 	 * 住宿表id

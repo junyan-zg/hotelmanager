@@ -1,5 +1,7 @@
 package cn.com.jy.hotel.domain.guest;
 
+import java.io.Serializable;
+
 /**
  * @ClassName: VipType
  * @Description: 会员类型
@@ -7,7 +9,8 @@ package cn.com.jy.hotel.domain.guest;
  * @date 2016年4月2日 上午5:35:35
  * 
  */
-public class VipType {
+public class VipType implements Serializable {
+	private static final long serialVersionUID = -7359974306742115811L;
 	private Short id;
 	/**
 	 * 会员类型名称

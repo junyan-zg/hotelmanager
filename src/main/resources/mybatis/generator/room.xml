@@ -23,7 +23,7 @@
 		</javaTypeResolver>
 
 		<!-- targetProject：生成po类的位置 -->
-		<javaModelGenerator targetPackage="cn.com.jy.hotel.domain.system"
+		<javaModelGenerator targetPackage="cn.com.jy.hotel.domain.room"
 			targetProject=".\src\main\java">
 			<!-- 是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="true" />
@@ -31,67 +31,80 @@
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 		<!-- mapper xml文件 -->
-		<sqlMapGenerator targetPackage="cn.com.jy.hotel.dao.system"
+		<sqlMapGenerator targetPackage="cn.com.jy.hotel.dao.room"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		<!-- mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="cn.com.jy.hotel.dao.system" targetProject=".\src\main\java">
+			targetPackage="cn.com.jy.hotel.dao.room" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
 		<!-- 指定数据库表 -->
-		<table tableName="sys_error_log" domainObjectName="SysErrorLog"
+		<table tableName="r_room_group" domainObjectName="RoomGroup"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="true" />
 			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 		</table>
-		<table tableName="sys_role" domainObjectName="SysRole"
+		<table tableName="r_room_type" domainObjectName="RoomType"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="true" />
 			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 		</table>
-		<table tableName="sys_operator" domainObjectName="SysOperator"
+		<table tableName="r_room" domainObjectName="Room"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="true" />
 			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 		</table>
-		<table tableName="sys_operator_log" domainObjectName="SysOperatorLog"
+		<table tableName="r_room_pay_method" domainObjectName="RoomPayMethod"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="true" />
 			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 		</table>
-		<table tableName="sys_privilege" domainObjectName="SysPrivilege"
+		<table tableName="r_black_list" domainObjectName="BlackList"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+			<generatedKey column="phonenumber" sqlStatement="MySql" identity="false" />
+		</table>
+		<table tableName="r_bookroom" domainObjectName="Bookroom"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="true" />
 			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 		</table>
-		<table tableName="sys_role_privilege" domainObjectName="SysRolePrivilege"
+		<table tableName="r_bookroom_type" domainObjectName="BookroomType"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="true" />
 			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 		</table>
-		<table tableName="sys_variable" domainObjectName="SysVariable"
+		<table tableName="r_bookroom_detail" domainObjectName="BookroomDetail"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="true" />
-			<generatedKey column="var_name" sqlStatement="MySql" identity="false" />
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 		</table>
-		
+		<table tableName="r_identify_code" domainObjectName="IdentifyCode"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+			<generatedKey column="phone_number" sqlStatement="MySql" identity="false" />
+		</table>
 		<!-- 有一些表的字段需要指定java类型 -->
 		<!-- <table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer" 
 			> <property name="useActualColumnNames" value="true"/> <generatedKey column="ID" 

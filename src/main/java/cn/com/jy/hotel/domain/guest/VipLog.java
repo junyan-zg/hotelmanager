@@ -1,5 +1,6 @@
 package cn.com.jy.hotel.domain.guest;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,8 @@ import java.util.Date;
  * @date 2016年4月2日 上午5:34:30
  * 
  */
-public class VipLog {
+public class VipLog implements Serializable{
+	private static final long serialVersionUID = -7576864209022629763L;
 	private Long id;
 	/**
 	 * 日志时间

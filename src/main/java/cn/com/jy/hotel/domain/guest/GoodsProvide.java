@@ -1,5 +1,6 @@
 package cn.com.jy.hotel.domain.guest;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -10,7 +11,8 @@ import java.math.BigDecimal;
  * @date 2016年4月2日 上午5:21:57
  *
  */
-public class GoodsProvide {
+public class GoodsProvide implements Serializable {
+	private static final long serialVersionUID = -922974397951302179L;
 	private Integer id;
 	/**
 	 * 物品名称

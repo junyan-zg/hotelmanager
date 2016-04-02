@@ -1,5 +1,7 @@
 package cn.com.jy.hotel.domain.guest;
 
+import java.io.Serializable;
+
 /**
  * @ClassName: GoodsSaleType
  * @Description: 要出售的商品的类型
@@ -7,7 +9,8 @@ package cn.com.jy.hotel.domain.guest;
  * @date 2016年4月2日 上午5:25:26
  * 
  */
-public class GoodsSaleType {
+public class GoodsSaleType implements Serializable {
+	private static final long serialVersionUID = 1703376479151720800L;
 	private Short id;
 	/**
 	 * 类型名称（如弃用则在名称后面加上(已删+时间戳)）
