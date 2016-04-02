@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jy.hotel.dao.guest.GoodsSaleMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.jy.hotel.domain.guest.GoodsSale" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="item_name" property="item_name" jdbcType="VARCHAR" />
+    <result column="cost" property="cost" jdbcType="DECIMAL" />
+    <result column="stock" property="stock" jdbcType="INTEGER" />
+    <result column="salePrice" property="salePrice" jdbcType="DECIMAL" />
+    <result column="item_type_id" property="item_type_id" jdbcType="SMALLINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.com.jy.hotel.domain.guest.GoodsSale" extends="BaseResultMap" >
+    <result column="item_desc" property="item_desc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, item_name, cost, stock, salePrice, item_type_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    item_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from g_goods_sale
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from g_goods_sale
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.jy.hotel.domain.guest.GoodsSale" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into g_goods_sale (item_name, cost, stock, 
+      salePrice, item_type_id, item_desc
+      )
+    values (#{item_name,jdbcType=VARCHAR}, #{cost,jdbcType=DECIMAL}, #{stock,jdbcType=INTEGER}, 
+      #{salePrice,jdbcType=DECIMAL}, #{item_type_id,jdbcType=SMALLINT}, #{item_desc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.jy.hotel.domain.guest.GoodsSale" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into g_goods_sale
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="item_name != null" >
+        item_name,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="salePrice != null" >
+        salePrice,
+      </if>
+      <if test="item_type_id != null" >
+        item_type_id,
+      </if>
+      <if test="item_desc != null" >
+        item_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="item_name != null" >
+        #{item_name,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="salePrice != null" >
+        #{salePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="item_type_id != null" >
+        #{item_type_id,jdbcType=SMALLINT},
+      </if>
+      <if test="item_desc != null" >
+        #{item_desc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.jy.hotel.domain.guest.GoodsSale" >
+    update g_goods_sale
+    <set >
+      <if test="item_name != null" >
+        item_name = #{item_name,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="salePrice != null" >
+        salePrice = #{salePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="item_type_id != null" >
+        item_type_id = #{item_type_id,jdbcType=SMALLINT},
+      </if>
+      <if test="item_desc != null" >
+        item_desc = #{item_desc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.com.jy.hotel.domain.guest.GoodsSale" >
+    update g_goods_sale
+    set item_name = #{item_name,jdbcType=VARCHAR},
+      cost = #{cost,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=INTEGER},
+      salePrice = #{salePrice,jdbcType=DECIMAL},
+      item_type_id = #{item_type_id,jdbcType=SMALLINT},
+      item_desc = #{item_desc,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.jy.hotel.domain.guest.GoodsSale" >
+    update g_goods_sale
+    set item_name = #{item_name,jdbcType=VARCHAR},
+      cost = #{cost,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=INTEGER},
+      salePrice = #{salePrice,jdbcType=DECIMAL},
+      item_type_id = #{item_type_id,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

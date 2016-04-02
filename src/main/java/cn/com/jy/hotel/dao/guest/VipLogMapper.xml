@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jy.hotel.dao.guest.VipLogMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.jy.hotel.domain.guest.VipLog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="log_time" property="log_time" jdbcType="TIMESTAMP" />
+    <result column="vip_id" property="vip_id" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.com.jy.hotel.domain.guest.VipLog" extends="BaseResultMap" >
+    <result column="log_detail" property="log_detail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, log_time, vip_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    log_detail
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from g_vip_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from g_vip_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.jy.hotel.domain.guest.VipLog" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into g_vip_log (log_time, vip_id, log_detail
+      )
+    values (#{log_time,jdbcType=TIMESTAMP}, #{vip_id,jdbcType=BIGINT}, #{log_detail,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.jy.hotel.domain.guest.VipLog" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into g_vip_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="log_time != null" >
+        log_time,
+      </if>
+      <if test="vip_id != null" >
+        vip_id,
+      </if>
+      <if test="log_detail != null" >
+        log_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="log_time != null" >
+        #{log_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vip_id != null" >
+        #{vip_id,jdbcType=BIGINT},
+      </if>
+      <if test="log_detail != null" >
+        #{log_detail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.jy.hotel.domain.guest.VipLog" >
+    update g_vip_log
+    <set >
+      <if test="log_time != null" >
+        log_time = #{log_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vip_id != null" >
+        vip_id = #{vip_id,jdbcType=BIGINT},
+      </if>
+      <if test="log_detail != null" >
+        log_detail = #{log_detail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.com.jy.hotel.domain.guest.VipLog" >
+    update g_vip_log
+    set log_time = #{log_time,jdbcType=TIMESTAMP},
+      vip_id = #{vip_id,jdbcType=BIGINT},
+      log_detail = #{log_detail,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.jy.hotel.domain.guest.VipLog" >
+    update g_vip_log
+    set log_time = #{log_time,jdbcType=TIMESTAMP},
+      vip_id = #{vip_id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

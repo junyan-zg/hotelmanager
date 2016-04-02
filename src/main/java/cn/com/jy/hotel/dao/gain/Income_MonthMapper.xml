@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jy.hotel.dao.gain.Income_MonthMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.jy.hotel.domain.gain.Income_Month" >
+    <id column="dayTime" property="dayTime" jdbcType="DATE" />
+    <result column="income" property="income" jdbcType="DECIMAL" />
+    <result column="cost" property="cost" jdbcType="DECIMAL" />
+    <result column="profit" property="profit" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dayTime, income, cost, profit
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.util.Date" >
+    select 
+    <include refid="Base_Column_List" />
+    from h_income_month
+    where dayTime = #{dayTime,jdbcType=DATE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.util.Date" >
+    delete from h_income_month
+    where dayTime = #{dayTime,jdbcType=DATE}
+  </delete>
+  <insert id="insert" parameterType="cn.com.jy.hotel.domain.gain.Income_Month" >
+    insert into h_income_month (dayTime, income, cost, 
+      profit)
+    values (#{dayTime,jdbcType=DATE}, #{income,jdbcType=DECIMAL}, #{cost,jdbcType=DECIMAL}, 
+      #{profit,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.jy.hotel.domain.gain.Income_Month" >
+    insert into h_income_month
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dayTime != null" >
+        dayTime,
+      </if>
+      <if test="income != null" >
+        income,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="profit != null" >
+        profit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dayTime != null" >
+        #{dayTime,jdbcType=DATE},
+      </if>
+      <if test="income != null" >
+        #{income,jdbcType=DECIMAL},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="profit != null" >
+        #{profit,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.jy.hotel.domain.gain.Income_Month" >
+    update h_income_month
+    <set >
+      <if test="income != null" >
+        income = #{income,jdbcType=DECIMAL},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="profit != null" >
+        profit = #{profit,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where dayTime = #{dayTime,jdbcType=DATE}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.jy.hotel.domain.gain.Income_Month" >
+    update h_income_month
+    set income = #{income,jdbcType=DECIMAL},
+      cost = #{cost,jdbcType=DECIMAL},
+      profit = #{profit,jdbcType=DECIMAL}
+    where dayTime = #{dayTime,jdbcType=DATE}
+  </update>
+</mapper>

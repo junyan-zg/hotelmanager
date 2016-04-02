@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jy.hotel.dao.guest.VipMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.jy.hotel.domain.guest.Vip" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="vip_name" property="vip_name" jdbcType="VARCHAR" />
+    <result column="blances" property="blances" jdbcType="DECIMAL" />
+    <result column="vip_idCard" property="vip_idCard" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="vip_phone" property="vip_phone" jdbcType="CHAR" />
+    <result column="vip_type_id" property="vip_type_id" jdbcType="SMALLINT" />
+    <result column="points" property="points" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.com.jy.hotel.domain.guest.Vip" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, vip_name, blances, vip_idCard, status, vip_phone, vip_type_id, points
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from g_vip
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from g_vip
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.jy.hotel.domain.guest.Vip" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into g_vip (vip_name, blances, vip_idCard, 
+      status, vip_phone, vip_type_id, 
+      points, remark)
+    values (#{vip_name,jdbcType=VARCHAR}, #{blances,jdbcType=DECIMAL}, #{vip_idCard,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{vip_phone,jdbcType=CHAR}, #{vip_type_id,jdbcType=SMALLINT}, 
+      #{points,jdbcType=BIGINT}, #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.jy.hotel.domain.guest.Vip" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into g_vip
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vip_name != null" >
+        vip_name,
+      </if>
+      <if test="blances != null" >
+        blances,
+      </if>
+      <if test="vip_idCard != null" >
+        vip_idCard,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="vip_phone != null" >
+        vip_phone,
+      </if>
+      <if test="vip_type_id != null" >
+        vip_type_id,
+      </if>
+      <if test="points != null" >
+        points,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vip_name != null" >
+        #{vip_name,jdbcType=VARCHAR},
+      </if>
+      <if test="blances != null" >
+        #{blances,jdbcType=DECIMAL},
+      </if>
+      <if test="vip_idCard != null" >
+        #{vip_idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="vip_phone != null" >
+        #{vip_phone,jdbcType=CHAR},
+      </if>
+      <if test="vip_type_id != null" >
+        #{vip_type_id,jdbcType=SMALLINT},
+      </if>
+      <if test="points != null" >
+        #{points,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.jy.hotel.domain.guest.Vip" >
+    update g_vip
+    <set >
+      <if test="vip_name != null" >
+        vip_name = #{vip_name,jdbcType=VARCHAR},
+      </if>
+      <if test="blances != null" >
+        blances = #{blances,jdbcType=DECIMAL},
+      </if>
+      <if test="vip_idCard != null" >
+        vip_idCard = #{vip_idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="vip_phone != null" >
+        vip_phone = #{vip_phone,jdbcType=CHAR},
+      </if>
+      <if test="vip_type_id != null" >
+        vip_type_id = #{vip_type_id,jdbcType=SMALLINT},
+      </if>
+      <if test="points != null" >
+        points = #{points,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.com.jy.hotel.domain.guest.Vip" >
+    update g_vip
+    set vip_name = #{vip_name,jdbcType=VARCHAR},
+      blances = #{blances,jdbcType=DECIMAL},
+      vip_idCard = #{vip_idCard,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      vip_phone = #{vip_phone,jdbcType=CHAR},
+      vip_type_id = #{vip_type_id,jdbcType=SMALLINT},
+      points = #{points,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.jy.hotel.domain.guest.Vip" >
+    update g_vip
+    set vip_name = #{vip_name,jdbcType=VARCHAR},
+      blances = #{blances,jdbcType=DECIMAL},
+      vip_idCard = #{vip_idCard,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      vip_phone = #{vip_phone,jdbcType=CHAR},
+      vip_type_id = #{vip_type_id,jdbcType=SMALLINT},
+      points = #{points,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
