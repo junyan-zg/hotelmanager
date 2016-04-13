@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	http://www.springframework.org/schema/context
+ 	http://www.springframework.org/schema/context/spring-context.xsd"
+ 	>
+	
+	<!-- 定义Hibernate的sessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"><!-- 以前是hibernate3 -->
+		<property name="dataSource" ref="dataSource"/>
+		<!-- 设置Hibernate的属性 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="javax.persistence.validation.mode">none</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop> <!-- 更新表 -->
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.autoReconnect">true</prop>
+				<prop key="hibernate.max_fech_depth">5</prop>
+				<prop key="hibernate.jdbc.batch_size">50</prop>
+				<prop key="hibernate.jdbc.fetch_size">100</prop>
+			</props>
+		</property>
+		
+		<property name="packagesToScan">	<!-- 扫描实体类包 -->
+			<list>
+				<value>cn.com.jy.hotel.domain</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 默认的注解映射的支持 -->
+	<context:annotation-config />
+	<context:component-scan base-package="cn.com.jy.hotel..*" use-default-filters="true">  <!-- 自动扫描该包路径下的所有注解 -->
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+	<!-- 创建spring的事务管理 -->
+	<!-- 创建事务管理器 -->
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- 开启注解事务 只对当前配置文件有效 -->
+	<tx:annotation-driven transaction-manager="txManager"/>
+	
+	<!-- 事务的声明 -->
+	<!-- hibernate4必须配置开启事务 否则getCurrentSession()获取不到 -->
+	<tx:advice id="baseServiceAdvice" transaction-manager="txManager">
+	<!-- 配置事务属性 -->
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="save" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="del*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="ex*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="up*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="sub*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="make*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="to*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="discard*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="pass*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="amend*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="no*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="count*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="list*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config proxy-target-class="true">
+	    <!--配置切入点-->
+		<aop:pointcut id="tradeCuts" expression="execution(* cn.com.jy.hotel.service..*.*(..))" />
+		<!-- 定义一个AOP通知者 -->
+		<aop:advisor advice-ref="baseServiceAdvice" pointcut-ref="tradeCuts" />
+	</aop:config>
+	<!-- advisors 执行切入点方法时都要执行advice-ref引用的事务处理 -->
+</beans>
+
+<!-- "execution(* com.service..*.*(..))" -->
