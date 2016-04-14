@@ -79,7 +79,7 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 		sb.append(" where "+this.classMetadata.getIdentifierPropertyName());
 		sb.append(" in (");
 		for (int i = 0; i < ids.length; i++) {
-			if(i==ids.length-1){
+			if(i == ids.length-1){
 				sb.append("?");
 			}else{
 				sb.append("?,");
@@ -93,4 +93,44 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 		return query.list();
 	}
 
+
+	@Override
+	public List<T> queryByConditions(String where, String[] whereArgs,
+			String groupBy, String orderBy, Integer limitOffset,
+			Integer limitCount) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> queryByPrimaryKeys(Serializable[] ids, boolean orderByAsc,
+			Integer limitOffset, Integer limitCount) throws Exception {
+		StringBuffer sb = new StringBuffer();
+		sb.append("from "+this.class_T.getName());
+		if(ids != null && ids.length != 0){
+			sb.append(" where "+this.classMetadata.getIdentifierPropertyName());
+			sb.append(" in (");
+			for (int i = 0; i < ids.length; i++) {
+				if(i == ids.length-1){
+					sb.append("?");
+				}else{
+					sb.append("?,");
+				}
+			}
+			sb.append(")");
+		}
+		String sort = " order by " + this.classMetadata.getIdentifierPropertyName() + (orderByAsc == true?" asc":" desc");
+		sb.append(sort);
+		Query query = this.getSession().createQuery(sb.toString());
+		for(int i = 0;i<ids.length;i++){
+			query.setParameter(i, ids[i]);
+		}
+		if(limitOffset!=null&&limitCount!=null){
+			query.setFirstResult(limitOffset);
+			query.setMaxResults(limitCount);
+		}
+		return query.list();
+	}
 }

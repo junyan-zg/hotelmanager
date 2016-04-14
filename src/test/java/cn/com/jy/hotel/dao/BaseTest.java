@@ -19,30 +19,42 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @date 2016年4月3日 上午3:09:56 
  *  
  */
-public abstract class BaseTest {
+public abstract class BaseTest<T> {
 	
 	protected ApplicationContext applicationContext;
 	
+	protected T service ;
+	
+	private String serviceName;
+	
+	public BaseTest(String serviceName) {
+		this.serviceName = serviceName;
+	}
+	
+	@SuppressWarnings("unchecked")
 	@Before
 	public void init() {
 		applicationContext = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+		service = (T) getBean(serviceName);
 	}
 	
-	public abstract void beanInit();
-	
-	public Object getBean(String mapperName){
-		return applicationContext.getBean(mapperName);
+	private Object getBean(String daoName){
+		return applicationContext.getBean(daoName);
 	}
 	
-	public abstract void deleteByPrimaryKey();
-	
-	public abstract void insert();
-	
-	public abstract void insertSelective();
-	
-	public abstract void selectByPrimaryKey();
-	
-	public abstract void updateByPrimaryKeySelective();
-	
-	public abstract void updateByPrimaryKey();
+	public abstract void add();
+
+	public abstract void update();
+
+	public abstract void delete();
+
+	public abstract void getById();
+
+	public abstract void getByIds();
+
+	public abstract void getAll();
+
+	public abstract void queryByConditions();
+
+	public abstract void queryByPrimaryKeys() throws Exception;
 }
