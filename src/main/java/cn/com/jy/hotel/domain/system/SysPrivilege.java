@@ -70,9 +70,9 @@ public class SysPrivilege implements java.io.Serializable {
 		this.description = description;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "sys_role_privilege", catalog = "hotel", joinColumns = { @JoinColumn(name = "privilege_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) })
-	public Set<SysRole> getSysRoles() {
+	@ManyToMany(fetch = FetchType.LAZY,mappedBy="sysPrivileges")
+/*	@JoinTable(name = "sys_role_privilege", catalog = "hotel", joinColumns = { @JoinColumn(name = "privilege_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) })
+*/	public Set<SysRole> getSysRoles() {
 		return this.sysRoles;
 	}
 

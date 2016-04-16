@@ -54,5 +54,11 @@ public abstract class BaseServiceImpl<T> implements BaseService<T>{
 			Integer limitOffset, Integer limitCount) throws Exception {
 		return getBaseDao().queryByPrimaryKeys(ids, orderByAsc, limitOffset, limitCount);
 	}
+	
+	@Override
+	public T queryByUniqueKey(String unique,Serializable uniqueArg) throws Exception{
+		return getBaseDao().queryByUniqueKey(unique, uniqueArg);
+	}
+
 
 }

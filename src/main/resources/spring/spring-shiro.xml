@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+           
+    <!--shiro过滤器配置，bean的id值须与web中的filter-name的值相同-->  
+	<bean id="shiroSecurityFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- 要求登录时的链接 -->
+		<property name="loginUrl" value="/su/login"></property>
+		<!-- 登陆成功后要跳转的连接 --> 
+		<property name="successUrl" value="/index.jsp"></property>
+		<!-- 未授权时要跳转的连接 --> 
+		<property name="unauthorizedUrl" value="/unauthorized.jsp"></property>
+		<!-- shiro 的核心安全接口 --> 
+		<property name="securityManager" ref="securityManager"></property>
+		<!-- shiro 连接约束配置 --> 
+		<property name="filterChainDefinitions">
+			<value>
+				/css/**=anon
+				/js/**=anon
+				/images/**=anon
+				/su/login* = anon
+			<!-- 	/loginAction_login.action* = anon -->
+				/**=authc
+			</value><!-- /*.action* = authc -->
+		</property>
+	</bean>									<!-- 有两个属性依赖 securityManager -->
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm">
+			<ref bean="myRealm"/>
+		</property>
+	</bean>
+	<!-- <bean id="myRealm" class="com.shiro.MyRealm"></bean> --><!-- 已用@Component("myRealm") 配置-->
+
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->    
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	
+	<!-- 开启注解 -->
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor" >
+		<property name="proxyTargetClass" value="true" />   
+	</bean>
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+</beans>
+
+<!--
+1、URL目录是基于HttpServletRequest.getContextPath()此目录设置 
+2、URL可使用通配符，**代表任意子目录 
+3、Shiro验证URL时，URL匹配成功便不再继续匹配查找。
+所以要注意配置文件中的URL顺序，尤其在使用通配符时。  -->

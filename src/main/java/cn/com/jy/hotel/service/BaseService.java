@@ -38,4 +38,6 @@ public interface BaseService<T> {
 	public List<T> queryByPrimaryKeys(Serializable[] ids, boolean orderByAsc,
 			Integer limitOffset, Integer limitCount) throws Exception;
 
+	public T queryByUniqueKey(String unique,Serializable uniqueArg) throws Exception;
+
 }

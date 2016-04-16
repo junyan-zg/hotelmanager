@@ -51,6 +51,8 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 
+	<import resource="classpath:spring/spring-shiro.xml" />
+
 	<!-- 创建spring的事务管理 -->
 	<!-- 创建事务管理器 -->
 	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">

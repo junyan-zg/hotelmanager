@@ -60,14 +60,11 @@
 	<filter>
 		<filter-name>openSessionInViewFilter</filter-name>
 		<filter-class>
-			org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+			org.springframework.orm.hibernate4.support.OpenSessionInViewFilter
+		</filter-class>
 		<init-param>
 			<param-name>singleSession</param-name>
 			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>sessionFactoryBean</param-name>
-			<param-value>sessionFactory</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
@@ -75,11 +72,12 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<listener>
-		<description>spring监听器</description>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<description>此监听器应该配置在web.xml中与Spring相关监听器中的第一个位置(也要在ContextLoaderListener的前面)</description>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
 	<listener>
-		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+		<description>spring监听器</description>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<!-- <listener> <listener-class>cn.com.freegprs.listener.ApplicationListerer</listener-class> 
 		</listener> -->
@@ -96,7 +94,14 @@
 		<servlet-name>mvc-dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
+	<filter>
+		<filter-name>shiroSecurityFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>shiroSecurityFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

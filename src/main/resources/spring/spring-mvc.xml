@@ -41,7 +41,6 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
-
 	<!-- 上传 需要使用到的配置 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

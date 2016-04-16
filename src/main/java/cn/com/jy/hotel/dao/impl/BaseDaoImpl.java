@@ -15,6 +15,8 @@ import org.hibernate.metadata.ClassMetadata;
 import cn.com.jy.hotel.dao.BaseDao;
 
 
+
+
 public class BaseDaoImpl<T> implements BaseDao<T>{
 	
 	@Resource
@@ -94,7 +96,6 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 	}
 
 
-	@Override
 	public List<T> queryByConditions(String where, String[] whereArgs,
 			String groupBy, String orderBy, Integer limitOffset,
 			Integer limitCount) throws Exception {
@@ -104,7 +105,6 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<T> queryByPrimaryKeys(Serializable[] ids, boolean orderByAsc,
 			Integer limitOffset, Integer limitCount) throws Exception {
 		StringBuffer sb = new StringBuffer();
@@ -132,5 +132,16 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 			query.setMaxResults(limitCount);
 		}
 		return query.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public T queryByUniqueKey(String unique, Serializable uniqueArg)
+			throws Exception {
+		if(uniqueArg ==null) return null;
+		String hql = "from "+this.class_T.getName() + " where "+ unique + " = ?";
+		Query query = this.getSession().createQuery(hql);
+		query.setParameter(0, uniqueArg);
+		return (T) query.uniqueResult();
 	}
 }

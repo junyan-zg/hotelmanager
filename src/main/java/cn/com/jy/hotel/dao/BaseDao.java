@@ -19,6 +19,8 @@ public interface BaseDao<T> {
 	public List<T> queryByConditions(String where, String[] whereArgs,
 			String groupBy, String orderBy, Integer limitOffset,
 			Integer limitCount) throws Exception;
+	
+	public T queryByUniqueKey(String unique,Serializable uniqueArg) throws Exception;
 
 	public List<T> queryByPrimaryKeys(Serializable[] ids, boolean orderByAsc,
 			Integer limitOffset, Integer limitCount) throws Exception;
