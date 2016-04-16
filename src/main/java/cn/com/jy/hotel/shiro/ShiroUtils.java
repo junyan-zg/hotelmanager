@@ -13,7 +13,7 @@ import java.security.Key;
 /** 
 * 备注： shiro进行加密解密的工具类封装 
 */ 
-public final class EndecryptUtils { 
+public final class ShiroUtils { 
     /** 
      * base64进制加密 
      * 

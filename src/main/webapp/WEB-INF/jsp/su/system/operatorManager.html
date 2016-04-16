@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+
+    <script type="text/javascript" src="../js/jquery.1.8.3-min.js"></script>
+    <script type="text/javascript" src="../jqueryUI/jquery.easyui.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../jqueryUI/themes/default/easyui.css">
+    <link type="text/css" rel="stylesheet" href="../jqueryUI/themes/icon.css">
+    <script type="text/javascript" src="../jqueryUI/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../jqueryUI/jquery.edatagrid.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="css/basic.css">
+
+    <script>
+        $(function(){
+            $('#tt').edatagrid({
+                    url: 'oper.json',
+                toolbar : [ {
+                    iconCls : 'icon-add',
+                    text : "添加一行",
+                    handler : function() {
+                        $('#tt').edatagrid('addRow');
+                    }
+                }, {
+                    iconCls : 'icon-remove',
+                    text : "删除一行",
+                    handler : function() {
+                        $('#tt').edatagrid('destroyRow');
+                    }
+                }, {
+                    iconCls : 'icon-save',
+                    text : "保存数据",
+                    handler : function() {
+                        $('#tt').edatagrid('saveRow');
+                    }
+                }, {
+                    iconCls : 'icon-no',
+                    text : "放弃修改",
+                    handler : function() {
+                        $('#tt').edatagrid('cancelRow');
+                    }
+                } ]
+
+            })
+        });
+    </script>
+
+
+</head>
+<body>
+<h2><b>系统操作员管理</b></h2>
+
+<div class="demo-info" style="margin-bottom:10px">
+    <div class="demo-tip icon-tip">&nbsp;</div>
+    <div>请通过编辑下面的表格进行管理。</div>
+    <div class="demo-tip icon-tip">&nbsp;</div>
+</div>
+
+<table id="tt" style="width:600px;height:500px;"
+       title="Editable DataGrid" toolbar="#toolbar" pagination="true"
+       rownumbers="true" fitColumns="true" singleSelect="true">
+    <thead>
+    <tr>
+        <!--<th field="id" width="100" editor="{type:'validatebox',options:{required:true}}">id</th>-->
+        <th field="operator_number" width="100" editor="{type:'textbox',options:{readonly:true}}">员工账号</th>
+        <th field="operator_name" width="100" align="center" editor="{type:'validatebox',options:{required:true}}">员工姓名</th>
+        <th field="sys_role_id" width="100" align="center" editor="numberbox">系统角色</th>
+        <th field="status" width="150"  align="center" editor="{type:'combobox',options:{required:true,valueField:'value',textField:'name',url:'json/status.json',editable:false,panelHeight:65}}">账号状态</th>
+    </tr>
+    </thead>
+</table>
+</body>
+</html>

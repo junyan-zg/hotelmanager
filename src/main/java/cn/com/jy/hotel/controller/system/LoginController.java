@@ -9,12 +9,15 @@
 package cn.com.jy.hotel.controller.system;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.com.jy.hotel.shiro.EndecryptUtils;
+import cn.com.jy.hotel.exception.MyException;
+import cn.com.jy.hotel.shiro.ShiroUtils;
 
 /** 
  * @ClassName: LoginController 
@@ -32,20 +35,14 @@ public class LoginController {
 	}
 	
 	@RequestMapping("su/loginCheck")
-	public String su_login_check(String operatorNumber,String operatorPwd){
+	public String su_login_check(String operatorNumber,String operatorPwd) throws Exception {
 		Subject subject = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(operatorNumber,operatorPwd);
 		try{
 			subject.login(token);
-		}catch (Exception e) {
-			e.printStackTrace();
-			/*
-			UnknownAccountException;//用户不存在
-			AuthenticationException;//密码不对
-			*/
-			System.out.println("用户名或密码错误！");
-			//ResponseUtil.out(response, content);
+		}catch(AuthenticationException e){
+			throw new MyException("账号或密码错误！",true);
 		}
-		return "/su/login";
+		return "redirect:/su/index";
 	}
 }

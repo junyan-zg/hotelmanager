@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    font-size: 12px;
+    line-height: 150%;
+    font-family: "Verdana", "Arial", "Helvetica", "sans-serif";
+    background-image: url("../../images/su/index/menu_bg.jpg")
+}
+table{
+    padding-left: 3px;
+}
+.headTd{
+    padding-left: 30px;
+    color: darkred;
+    background-image: url("../../images/su/index/menu_bt.jpg");
+    background-size: 100% 100%;
+}
+.headTd:hover{
+    cursor:pointer;
+}
+.childTd > a,.childTd > a:visited{
+    text-decoration: none;
+    color: #036;
+}
+.childTd > a:hover{
+    color: blue;
+    text-decoration: none;
+}

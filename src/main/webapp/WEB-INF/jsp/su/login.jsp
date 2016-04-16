@@ -31,7 +31,7 @@
 					<input type="reset" class="sub_button2" value="重&nbsp;置" style="opacity: 0.7;">
 				</label>
 				<label>
-					<input type="button" class="sub_button" id="bt_submit" value="登&nbsp;录" style="opacity: 0.7;">
+					<input type="submit" class="sub_button" id="bt_submit" value="登&nbsp;录" style="opacity: 0.7;">
 				</label>
 			</div>
 		</div>

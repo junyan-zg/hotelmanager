@@ -44,7 +44,7 @@ public class MyRealm extends AuthorizingRealm{
 		if(sysOperator==null){		//该用户不存在
 			throw new UnknownAccountException();//用户不存在
 		}else{		//该用户存在
-			if(EndecryptUtils.CheckLoginMd5Password(String.valueOf(usernamePasswordToken.getPassword()), sysOperator)){
+			if(ShiroUtils.CheckLoginMd5Password(String.valueOf(usernamePasswordToken.getPassword()), sysOperator)){
 				SecurityUtils.getSubject().getSession().setAttribute("sysOperator", sysOperator);
 				usernamePasswordToken.setPassword(sysOperator.getOperatorPwd().toCharArray());
 				AuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(sysOperator,sysOperator.getOperatorPwd(),getName());
