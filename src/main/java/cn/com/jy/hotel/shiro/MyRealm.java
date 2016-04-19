@@ -1,5 +1,7 @@
 package cn.com.jy.hotel.shiro;
 
+import java.util.Set;
+
 import javax.annotation.Resource;
 
 import org.apache.shiro.SecurityUtils;
@@ -16,6 +18,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 
 import cn.com.jy.hotel.domain.system.SysOperator;
+import cn.com.jy.hotel.domain.system.SysPrivilege;
+import cn.com.jy.hotel.domain.system.SysRole;
 import cn.com.jy.hotel.service.system.SysOperatorService;
 
 
@@ -67,21 +71,16 @@ public class MyRealm extends AuthorizingRealm{
 			PrincipalCollection principals) {
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		//根据用户获取权限，把用户能够访问到的权限封装在authorizationInfo对象中
-		//User user = (User)SecurityUtils.getSubject().getSession().getAttribute("user");
-		/*Collection<Privilege> privileges =  null;
-		if(user.getUsername().equals("admin")){
-			privileges = this.privilegeService.getFunctions();
-		}else{
-			privileges = this.privilegeService.getFunctionsByUid(user);
-		}
-		for(Privilege privilege:privileges){
-			authorizationInfo.addStringPermission(privilege.getName());
-		}*/
+
+		SysOperator sysOperator = (SysOperator) SecurityUtils.getSubject().getSession().getAttribute("sysOperator");
 		
-		authorizationInfo.addStringPermission("我");
-		authorizationInfo.addStringPermission("爱");
-		authorizationInfo.addStringPermission("你");
-		//authorizationInfo.addStringPermission("部门查询");
+		SysRole sysRole = sysOperator.getSysRole();
+		Set<SysPrivilege> sysPrivileges = sysRole.getSysPrivileges();
+		
+		for (SysPrivilege sysPrivilege : sysPrivileges) {
+			authorizationInfo.addStringPermission(sysPrivilege.getName());
+			System.out.println(sysPrivilege.getName());
+		}
 		return authorizationInfo;
 	}
 

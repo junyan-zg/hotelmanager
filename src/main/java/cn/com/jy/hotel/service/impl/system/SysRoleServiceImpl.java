@@ -10,6 +10,7 @@ package cn.com.jy.hotel.service.impl.system;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Service;
 
 import cn.com.jy.hotel.dao.BaseDao;
@@ -34,6 +35,12 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysR
 	@Override
 	protected BaseDao<SysRole> getBaseDao() {
 		return sysRoleDao;
+	}
+
+	/*@RequiresPermissions(value={"33","22","44"})*/
+	@Override
+	public void hh() {
+		System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
 	}
 
 }

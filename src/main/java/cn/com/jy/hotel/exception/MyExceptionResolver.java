@@ -53,7 +53,7 @@ public class MyExceptionResolver implements HandlerExceptionResolver {
 		}
 		if(returnJSon){
 			out(response, exInfo);
-			return null;
+			return new ModelAndView();
 		}else{
 			Map<String, String> model = new HashMap<String, String>();
 			model.put("exInfo", exInfo);

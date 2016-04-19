@@ -29,7 +29,8 @@
 				/css/**=anon
 				/js/**=anon
 				/images/**=anon
-				/su/login* = anon
+				/su/login = anon
+				/su/loginCheck = anon
 			<!-- 	/loginAction_login.action* = anon -->
 				/**=authc
 			</value><!-- /*.action* = authc -->

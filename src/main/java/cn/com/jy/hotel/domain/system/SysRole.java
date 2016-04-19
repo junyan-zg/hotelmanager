@@ -85,7 +85,7 @@ public class SysRole implements java.io.Serializable {
 		this.sysOperators = sysOperators;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "sys_role_privilege", catalog = "hotel", joinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "privilege_id", nullable = false, updatable = false) })
 	public Set<SysPrivilege> getSysPrivileges() {
 		return this.sysPrivileges;

@@ -8,6 +8,9 @@
  */
 package cn.com.jy.hotel.exception;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @ClassName: MyException
  * @Description: TODO

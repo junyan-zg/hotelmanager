@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,7 @@
     </script>
 </head>
 <body>
+<shiro:authenticated>
 <table height="100%" cellspacing=0 cellpadding=0 width=146 border=0>
 <tr>
 <td valign=top align="middle">
@@ -21,6 +23,7 @@
         <td height=10></td>
     </tr>
 </table>
+<shiro:hasPermission name="33:22:44"> 
 <table cellspacing=0 cellpadding=0 width=145 border=0>
     <tr height=22>
         <td class="headTd" onclick="expand(1)">房间管理</td>
@@ -29,6 +32,7 @@
         <td></td>
     </tr>
 </table>
+</shiro:hasPermission>
 <table id=child1 style="display: block" cellspacing=0 cellpadding=0 width=145 border=0>
     <tr height=20>
         <td align="middle" width=30><img height=9 src="${pageContext.request.contextPath}/images/su/index/menu_icon.gif" width=9></td>
@@ -191,7 +195,7 @@
     </tr>
     <tr height=20>
         <td align="middle" width=30><img height=9 src="${pageContext.request.contextPath}/images/su/index/menu_icon.gif" width=9></td>
-        <td class="childTd"><a href="system/roomManager.html" target=right>房间编辑</a></td>
+        <td class="childTd"><a href="${pageContext.request.contextPath}/su/system/roomManager" target=right>房间编辑</a></td>
     </tr>
     <tr height=20>
         <td align="middle" width=30><img height=9 src="${pageContext.request.contextPath}/images/su/index/menu_icon.gif" width=9></td>
@@ -233,5 +237,6 @@
 </td>
 </tr>
 </table>
+</shiro:authenticated>
 </body>
 </html>

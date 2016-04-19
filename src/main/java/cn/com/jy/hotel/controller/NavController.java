@@ -6,7 +6,7 @@
 * @date 2016年4月17日 上午4:31:51 
 * @version V1.0   
 */ 
-package cn.com.jy.hotel.controller.system;
+package cn.com.jy.hotel.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

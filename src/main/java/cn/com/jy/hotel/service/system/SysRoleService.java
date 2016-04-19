@@ -19,5 +19,5 @@ import cn.com.jy.hotel.service.BaseService;
  *  
  */
 public interface SysRoleService extends BaseService<SysRole>{
-
+	public void hh();
 }

@@ -1,17 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
     <title></title>
+    <%@include file="/include.jsp"%> 
 
-
-    <script type="text/javascript" src="../js/jquery.1.8.3-min.js"></script>
-    <script type="text/javascript" src="../jqueryUI/jquery.easyui.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="../jqueryUI/themes/default/easyui.css">
-    <link type="text/css" rel="stylesheet" href="../jqueryUI/themes/icon.css">
-    <script type="text/javascript" src="../jqueryUI/locale/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript" src="../jqueryUI/jquery.edatagrid.js"></script>
-
-    <link type="text/css" rel="stylesheet" href="css/basic.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/su/system/basic.css">
 
     <script>
         $(function () {
