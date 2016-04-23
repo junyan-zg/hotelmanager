@@ -2,6 +2,7 @@ package cn.com.jy.hotel.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 public interface BaseDao<T> {
 	public void add(T t) throws Exception;
@@ -19,6 +20,8 @@ public interface BaseDao<T> {
 	public List<T> queryByConditions(String where, String[] whereArgs,
 			String groupBy, String orderBy, Integer limitOffset,
 			Integer limitCount) throws Exception;
+	
+	public int delByConditions(String where,Set<?> whereArgs) throws Exception;
 	
 	public T queryByUniqueKey(String unique,Serializable uniqueArg) throws Exception;
 

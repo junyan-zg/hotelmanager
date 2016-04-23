@@ -33,38 +33,53 @@ public class MyExceptionResolver implements HandlerExceptionResolver {
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex) {
-		
+
 		String exInfo = null;
-		boolean returnJSon = true;
-		
+		short state = 0;// 0源码返回，1跳转页面，2返回封装js
 		if (!(request.getHeader("accept").indexOf("application/json") > -1 || (request
 				.getHeader("X-Requested-With") != null && request.getHeader(
-				"X-Requested-With").indexOf("XMLHttpRequest") > -1))) {	// 如果不是异步请求
-			returnJSon = false;
+				"X-Requested-With").indexOf("XMLHttpRequest") > -1))) { // 如果不是异步请求
+			state = 1;
 		} else {// JSON格式返回
-			returnJSon = true;
+			state = 2;
 		}
-		if(ex instanceof MyException){
-			MyException e = (MyException)ex;
-			returnJSon = e.isReturnJson();
+		if (ex instanceof MyException) {
+			MyException e = (MyException) ex;
 			exInfo = e.getExInfo();
-		}else{
+			state = e.getState();
+		} else {
 			exInfo = ex.getMessage();
 		}
-		if(returnJSon){
+		if (state == 0) {
+			outSrc(response, exInfo);
+			return new ModelAndView();
+		} else if (state == 2) {
 			out(response, exInfo);
 			return new ModelAndView();
-		}else{
+		} else if (state == 1) {
 			Map<String, String> model = new HashMap<String, String>();
 			model.put("exInfo", exInfo);
-			return new ModelAndView("/error",model);
+			return new ModelAndView("/error", model);
 		}
+		return null;
 	}
-	
-	private void out(HttpServletResponse response,String info){
+
+	private void outSrc(HttpServletResponse response, String info) {
 		try {
 			PrintWriter writer = response.getWriter();
-			String infoAll = "<script>alert('"+ info +"'); window.history.back(-1); </script>";
+			writer.write(info);
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void out(HttpServletResponse response, String info) {
+		try {
+			PrintWriter writer = response.getWriter();
+			String infoAll = "<script>alert('" + info
+					+ "'); window.history.back(-1); </script>";
 			writer.write(infoAll);
 			writer.flush();
 			writer.close();

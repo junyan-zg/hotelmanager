@@ -8,8 +8,6 @@
  */
 package cn.com.jy.hotel.exception;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @ClassName: MyException
@@ -22,12 +20,12 @@ public class MyException extends Exception {
 	
 	private String exInfo;
 	
-	private boolean returnJson = true;
-
-	public MyException(String exInfo,boolean returnJson) {
+	private short state = 0;//0源码返回，1跳转页面，2返回封装js
+	
+	public MyException(String exInfo,short state) {
 		super(exInfo);
 		this.exInfo = exInfo;
-		this.returnJson = returnJson;
+		this.setState(state);
 	}
 	
 	public MyException(String exInfo,Exception e) {
@@ -38,8 +36,12 @@ public class MyException extends Exception {
 	public String getExInfo() {
 		return this.exInfo;
 	}
-	
-	public boolean isReturnJson() {
-		return this.returnJson;
+
+	public short getState() {
+		return state;
+	}
+
+	public void setState(short state) {
+		this.state = state;
 	}
 }

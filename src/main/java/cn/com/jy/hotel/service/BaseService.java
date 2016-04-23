@@ -10,6 +10,7 @@ package cn.com.jy.hotel.service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /** 
  * @ClassName: BaseService 
@@ -31,6 +32,8 @@ public interface BaseService<T> {
 
 	public List<T> getAll() throws Exception;
 
+	public int delByConditions(String where,Set<?> whereArgs) throws Exception;
+	
 	public List<T> queryByConditions(String where, String[] whereArgs,
 			String groupBy, String orderBy, Integer limitOffset,
 			Integer limitCount) throws Exception;

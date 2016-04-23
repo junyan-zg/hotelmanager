@@ -20,23 +20,23 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "r_room_group", catalog = "hotel", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"group_name", "parent_id" }))
-public class RRoomGroup implements java.io.Serializable {
+public class RRoomGroup implements java.io.Serializable{
 
 	private Short id;
 	private String groupName;
 	private String remark;
-	private int parentId;
+	private Short parentId;
 	private Set<RRoom> RRooms = new HashSet<RRoom>(0);
 
 	public RRoomGroup() {
 	}
 
-	public RRoomGroup(String groupName, int parentId) {
+	public RRoomGroup(String groupName, Short parentId) {
 		this.groupName = groupName;
 		this.parentId = parentId;
 	}
 
-	public RRoomGroup(String groupName, String remark, int parentId,
+	public RRoomGroup(String groupName, String remark, Short parentId,
 			Set<RRoom> RRooms) {
 		this.groupName = groupName;
 		this.remark = remark;
@@ -74,11 +74,11 @@ public class RRoomGroup implements java.io.Serializable {
 	}
 
 	@Column(name = "parent_id", nullable = false)
-	public int getParentId() {
+	public Short getParentId() {
 		return this.parentId;
 	}
 
-	public void setParentId(int parentId) {
+	public void setParentId(Short parentId) {
 		this.parentId = parentId;
 	}
 

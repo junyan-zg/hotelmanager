@@ -6,6 +6,7 @@
 		"id":11,
 		"text":"Photos",
 		"state":"closed",
+		"iconCls":"icon-house2",
 		"children":[{
 			"id":111,
 			"text":"Friend"

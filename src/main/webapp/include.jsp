@@ -6,3 +6,14 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/jqueryUI/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/jqueryUI/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/jqueryUI/jquery.edatagrid.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/jqueryUI/jquery.etree.js"></script>
+
+
+<script type="text/javascript">
+	$(function() {
+		var body = document.getElementsByTagName("body")[0];
+			body.oncontextmenu = function() {
+				return false;
+			}
+	})
+</script>

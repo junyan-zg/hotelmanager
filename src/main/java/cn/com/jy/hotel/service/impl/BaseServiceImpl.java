@@ -2,6 +2,7 @@ package cn.com.jy.hotel.service.impl;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import cn.com.jy.hotel.dao.BaseDao;
 import cn.com.jy.hotel.service.BaseService;
@@ -18,6 +19,12 @@ public abstract class BaseServiceImpl<T> implements BaseService<T>{
 
 	protected abstract BaseDao<T> getBaseDao();
 	
+	@Override
+	public int delByConditions(String where, Set<?> whereArgs)
+			throws Exception {
+		return getBaseDao().delByConditions(where, whereArgs);
+	}
+
 	public void add(T t) throws Exception {
 		getBaseDao().add(t);
 	}

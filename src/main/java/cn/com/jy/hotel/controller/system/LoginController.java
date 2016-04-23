@@ -41,7 +41,7 @@ public class LoginController {
 		try {
 			subject.login(token);
 		} catch (AuthenticationException e) {
-			throw new MyException("账号或密码错误！", false);
+			throw new MyException("账号或密码错误！", (short)2);
 		}
 		return "redirect:/su/index";
 	}
