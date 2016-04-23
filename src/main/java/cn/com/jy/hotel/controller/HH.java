@@ -8,8 +8,6 @@
 */ 
 package cn.com.jy.hotel.controller;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.com.jy.hotel.domain.system.SysOperator;
-import cn.com.jy.hotel.domain.system.SysRole;
 import cn.com.jy.hotel.service.system.SysRoleService;
 
 /** 

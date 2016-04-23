@@ -41,25 +41,25 @@ public abstract class BaseServiceImpl<T> implements BaseService<T>{
 		return getBaseDao().getById(id);
 	}
 
-	public List<T> getByIds(Serializable[] ids) throws Exception {
-		return getBaseDao().getByIds(ids);
+	public List<T> getByIds(Serializable[] ids,boolean useCache) throws Exception {
+		return getBaseDao().getByIds(ids,useCache);
 	}
 	
-	public List<T> getAll() throws Exception {
-		return getBaseDao().getAll();
+	public List<T> getAll(boolean useCache) throws Exception {
+		return getBaseDao().getAll(useCache);
 	}
 
 	@Override
 	public List<T> queryByConditions(String where, String[] whereArgs,
 			String groupBy, String orderBy, Integer limitOffset,
-			Integer limitCount) throws Exception {
-		return getBaseDao().queryByConditions(where, whereArgs, groupBy, orderBy, limitOffset, limitCount);
+			Integer limitCount,boolean useCache) throws Exception {
+		return getBaseDao().queryByConditions(where, whereArgs, groupBy, orderBy, limitOffset, limitCount,useCache);
 	}
 
 	@Override
 	public List<T> queryByPrimaryKeys(Serializable[] ids, boolean orderByAsc,
-			Integer limitOffset, Integer limitCount) throws Exception {
-		return getBaseDao().queryByPrimaryKeys(ids, orderByAsc, limitOffset, limitCount);
+			Integer limitOffset, Integer limitCount,boolean useCache) throws Exception {
+		return getBaseDao().queryByPrimaryKeys(ids, orderByAsc, limitOffset, limitCount,useCache);
 	}
 	
 	@Override

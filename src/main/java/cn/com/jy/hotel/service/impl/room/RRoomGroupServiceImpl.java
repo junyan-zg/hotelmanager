@@ -50,7 +50,7 @@ public class RRoomGroupServiceImpl extends BaseServiceImpl<RRoomGroup>
 
 	@Override
 	public List<Tree> getAllRoomGroup() throws Exception {
-		List<RRoomGroup> list = getBaseDao().getAll();
+		List<RRoomGroup> list = getBaseDao().getAll(true);
 		Map<Short, List<Tree>> map = new HashMap<>();
 		Map<Short, Tree> mapID = new HashMap<>();
 		for (RRoomGroup roomGroup : list) {
@@ -97,7 +97,7 @@ public class RRoomGroupServiceImpl extends BaseServiceImpl<RRoomGroup>
 
 	@Override
 	public void delroomGroup(Short pid) throws Exception {
-		List<RRoomGroup> list = getBaseDao().getAll();
+		List<RRoomGroup> list = getBaseDao().getAll(true);
 		Map<Short, List<Tree>> map = new HashMap<>();
 		Map<Short, Tree> mapID = new HashMap<>();
 		for (RRoomGroup roomGroup : list) {

@@ -28,18 +28,18 @@ public interface BaseService<T> {
 
 	public T getById(Serializable id) throws Exception;
 
-	public List<T> getByIds(Serializable[] ids) throws Exception;
+	public List<T> getByIds(Serializable[] ids,boolean useCache) throws Exception;
 
-	public List<T> getAll() throws Exception;
+	public List<T> getAll(boolean useCache) throws Exception;
 
 	public int delByConditions(String where,Set<?> whereArgs) throws Exception;
 	
 	public List<T> queryByConditions(String where, String[] whereArgs,
 			String groupBy, String orderBy, Integer limitOffset,
-			Integer limitCount) throws Exception;
+			Integer limitCount,boolean useCache) throws Exception;
 
 	public List<T> queryByPrimaryKeys(Serializable[] ids, boolean orderByAsc,
-			Integer limitOffset, Integer limitCount) throws Exception;
+			Integer limitOffset, Integer limitCount,boolean useCache) throws Exception;
 
 	public T queryByUniqueKey(String unique,Serializable uniqueArg) throws Exception;
 

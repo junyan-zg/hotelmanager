@@ -65,15 +65,15 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> getAll() throws Exception {
+	public List<T> getAll(boolean useCache) throws Exception {
 
 		String hql = "from " + this.class_T.getName();
 		Query query = this.getSession().createQuery(hql);
-		return query.list();
+		return query.setCacheable(useCache).list();
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> getByIds(Serializable[] ids) throws Exception {
+	public List<T> getByIds(Serializable[] ids,boolean useCache) throws Exception {
 		StringBuffer sb = new StringBuffer();
 		sb.append("from " + this.class_T.getName());
 		sb.append(" where " + this.classMetadata.getIdentifierPropertyName());
@@ -90,13 +90,13 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		for (int i = 0; i < ids.length; i++) {
 			query.setParameter(i, ids[i]);
 		}
-		return query.list();
+		return query.setCacheable(useCache).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<T> queryByConditions(String where, String[] whereArgs,
 			String groupBy, String orderBy, Integer limitOffset,
-			Integer limitCount) throws Exception {
+			Integer limitCount,boolean useCache) throws Exception {
 
 		StringBuffer sb = new StringBuffer();
 		sb.append("from " + this.class_T.getName());
@@ -125,12 +125,12 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			query.setFirstResult(limitOffset);
 			query.setMaxResults(limitCount);
 		}
-		return query.list();
+		return query.setCacheable(useCache).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<T> queryByPrimaryKeys(Serializable[] ids, boolean orderByAsc,
-			Integer limitOffset, Integer limitCount) throws Exception {
+			Integer limitOffset, Integer limitCount,boolean useCache) throws Exception {
 		StringBuffer sb = new StringBuffer();
 		sb.append("from " + this.class_T.getName());
 		if (ids != null && ids.length != 0) {
@@ -158,7 +158,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			query.setFirstResult(limitOffset);
 			query.setMaxResults(limitCount);
 		}
-		return query.list();
+		return query.setCacheable(useCache).list();
 	}
 
 	@SuppressWarnings("unchecked")

@@ -93,7 +93,7 @@ public class SysRoleTest extends BaseTest{
 	@Override
 	public void getByIds() throws Exception {
 		// TODO Auto-generated method stub
-		List<SysRole> ids = sysRoleService.getByIds(new Short[]{1,3,4});
+		List<SysRole> ids = sysRoleService.getByIds(new Short[]{1,3,4},false);
 		for (SysRole sysRole : ids) {
 			Set<SysPrivilege> sysPrivileges = sysRole.getSysPrivileges();
 			for (SysPrivilege sysPrivilege : sysPrivileges) {
@@ -132,7 +132,7 @@ public class SysRoleTest extends BaseTest{
 	@Test
 	@Override
 	public void queryByPrimaryKeys() throws Exception {
-		List<SysRole> list = sysRoleService.queryByPrimaryKeys(new Short[]{1,3,4},false,1,2);
+		List<SysRole> list = sysRoleService.queryByPrimaryKeys(new Short[]{1,3,4},false,1,2,false);
 		for (SysRole sysRole : list) {
 			Set<SysPrivilege> sysPrivileges = sysRole.getSysPrivileges();
 			for (SysPrivilege sysPrivilege : sysPrivileges) {
