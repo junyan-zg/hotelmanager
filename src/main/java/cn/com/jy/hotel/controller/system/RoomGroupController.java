@@ -67,7 +67,7 @@ public class RoomGroupController {
 	@RequestMapping("/delRoomGroup")
 	public String delRoomGroup(Short id) throws Exception{
 		try{
-			rRoomGroupService.delete(id);
+			rRoomGroupService.delroomGroup(id);
 			return "success";
 		}catch(Exception e){
 			throw new MyException("删除失败",(short)0);
