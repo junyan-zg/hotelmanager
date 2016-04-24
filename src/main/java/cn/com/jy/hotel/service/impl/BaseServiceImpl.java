@@ -67,5 +67,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T>{
 		return getBaseDao().queryByUniqueKey(unique, uniqueArg);
 	}
 
-
+	public Long getCount(boolean useCache) throws Exception{
+		return getBaseDao().getCount(useCache);
+	}
 }

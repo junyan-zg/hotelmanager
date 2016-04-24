@@ -36,4 +36,10 @@ public class RRoomServiceImpl extends BaseServiceImpl<RRoom> implements RRoomSer
 		return rRoomDao;
 	}
 
+	@Override
+	public Long getCountByGroupId(Short group_id,boolean useCache) throws Exception {
+	
+		return rRoomDao.getCountByGroupId(group_id,useCache);
+	}
+
 }

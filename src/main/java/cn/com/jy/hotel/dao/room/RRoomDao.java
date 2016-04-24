@@ -19,5 +19,5 @@ import cn.com.jy.hotel.domain.room.RRoom;
  *  
  */
 public interface RRoomDao extends BaseDao<RRoom>{
-
+	public Long getCountByGroupId(Short group_id,boolean useCache) throws Exception;
 }

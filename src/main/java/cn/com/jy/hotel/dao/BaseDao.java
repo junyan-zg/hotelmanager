@@ -27,6 +27,8 @@ public interface BaseDao<T> {
 
 	public List<T> queryByPrimaryKeys(Serializable[] ids, boolean orderByAsc,
 			Integer limitOffset, Integer limitCount,boolean useCache) throws Exception;
+	
+	public Long getCount(boolean useCache) throws Exception;
 
 	// 1、对所有的查询做了一个抽象
 	// 2、对所有的表的计算表的行数做了个通用的实现

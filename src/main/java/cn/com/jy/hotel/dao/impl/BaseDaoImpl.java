@@ -73,7 +73,8 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> getByIds(Serializable[] ids,boolean useCache) throws Exception {
+	public List<T> getByIds(Serializable[] ids, boolean useCache)
+			throws Exception {
 		StringBuffer sb = new StringBuffer();
 		sb.append("from " + this.class_T.getName());
 		sb.append(" where " + this.classMetadata.getIdentifierPropertyName());
@@ -96,7 +97,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> queryByConditions(String where, String[] whereArgs,
 			String groupBy, String orderBy, Integer limitOffset,
-			Integer limitCount,boolean useCache) throws Exception {
+			Integer limitCount, boolean useCache) throws Exception {
 
 		StringBuffer sb = new StringBuffer();
 		sb.append("from " + this.class_T.getName());
@@ -130,7 +131,8 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
 	@SuppressWarnings("unchecked")
 	public List<T> queryByPrimaryKeys(Serializable[] ids, boolean orderByAsc,
-			Integer limitOffset, Integer limitCount,boolean useCache) throws Exception {
+			Integer limitOffset, Integer limitCount, boolean useCache)
+			throws Exception {
 		StringBuffer sb = new StringBuffer();
 		sb.append("from " + this.class_T.getName());
 		if (ids != null && ids.length != 0) {
@@ -151,8 +153,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 				+ (orderByAsc == true ? " asc" : " desc");
 		sb.append(sort);
 		Query query = this.getSession().createQuery(sb.toString());
-		for (int i = 0; i < ids.length; i++) {
-			query.setParameter(i, ids[i]);
+		if (ids != null && ids.length != 0) {
+			for (int i = 0; i < ids.length; i++) {
+				query.setParameter(i, ids[i]);
+			}
 		}
 		if (limitOffset != null && limitCount != null) {
 			query.setFirstResult(limitOffset);
@@ -175,8 +179,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	}
 
 	@Override
-	public int delByConditions(String where, Set<?> whereArgs)
-			throws Exception {
+	public int delByConditions(String where, Set<?> whereArgs) throws Exception {
 		if (where == null || whereArgs == null || whereArgs.size() == 0)
 			return 0;
 		String hql = "delete from " + this.class_T.getName() + " where "
@@ -200,4 +203,11 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return query.executeUpdate();
 	}
 
+	public Long getCount(boolean useCache) throws Exception {
+		String hql = "select count("
+				+ this.classMetadata.getIdentifierPropertyName() + ") from "
+				+ this.class_T.getName();
+		Query query = this.getSession().createQuery(hql);
+		return (long) query.setCacheable(useCache).uniqueResult();
+	}
 }

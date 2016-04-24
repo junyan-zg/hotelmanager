@@ -43,4 +43,5 @@ public interface BaseService<T> {
 
 	public T queryByUniqueKey(String unique,Serializable uniqueArg) throws Exception;
 
+	public Long getCount(boolean useCache) throws Exception;
 }

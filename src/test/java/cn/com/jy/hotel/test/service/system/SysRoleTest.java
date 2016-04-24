@@ -8,6 +8,7 @@
 */ 
 package cn.com.jy.hotel.test.service.system;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -18,8 +19,11 @@ import org.junit.Test;
 
 import com.sun.tools.classfile.StackMapTable_attribute.same_frame;
 
+import cn.com.jy.hotel.domain.room.RRoomType;
 import cn.com.jy.hotel.domain.system.SysPrivilege;
 import cn.com.jy.hotel.domain.system.SysRole;
+import cn.com.jy.hotel.service.room.RRoomGroupService;
+import cn.com.jy.hotel.service.room.RRoomTypeService;
 import cn.com.jy.hotel.service.system.SysRoleService;
 import cn.com.jy.hotel.test.service.BaseTest;
 import cn.com.jy.hotel.test.service.BaseTest;
@@ -35,6 +39,10 @@ public class SysRoleTest extends BaseTest{
 
 	@Resource
 	private SysRoleService sysRoleService;
+	@Resource
+	private RRoomGroupService rRoomGroupService;
+	@Resource
+	private RRoomTypeService rRoomTypeService;
 	/* (non-Javadoc)
 	* <p>Title: add</p> 
 	* <p>Description: </p>  
@@ -141,4 +149,15 @@ public class SysRoleTest extends BaseTest{
 		}
 	}
 
+	@Test
+	public void hh() throws Exception{
+		System.out.println(rRoomGroupService.getCount(true));
+	}
+	@Test
+	public void hh2() throws Exception{
+		for (int i = 0; i < 233; i++) {
+			RRoomType roomType = new RRoomType("单人房"+i, (short)1, new BigDecimal(200));
+			rRoomTypeService.add(roomType);
+		}
+	}
 }

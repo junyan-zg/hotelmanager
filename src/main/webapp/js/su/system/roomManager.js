@@ -27,7 +27,8 @@ $(function() {
 			});
 		},
 		onClick : function(node) {
-			// $('#t2').edatagrid('load');
+			curr_groupId = node.id;
+			table2_reload();
 			var str = node.text;
 			var parent = node;
 			var pNode = node;
@@ -41,64 +42,8 @@ $(function() {
 			changeTitle(str);
 		}
 	});
-	$('#tt').edatagrid({
-		url : 'oper.json',
-		toolbar : [ {
-			iconCls : 'icon-add',
-			text : "添加一行",
-			handler : function() {
-				$('#tt').edatagrid('addRow');
-			}
-		}, {
-			iconCls : 'icon-remove',
-			text : "删除一行",
-			handler : function() {
-				$('#tt').edatagrid('destroyRow');
-			}
-		}, {
-			iconCls : 'icon-save',
-			text : "保存数据",
-			handler : function() {
-				$('#tt').edatagrid('saveRow');
-			}
-		}, {
-			iconCls : 'icon-cancel',
-			text : "放弃修改",
-			handler : function() {
-				$('#tt').edatagrid('cancelRow');
-			}
-		} ]
-
-	});
-	$('#t2').edatagrid({
-		url : 'oper.json',
-		toolbar : [ {
-			iconCls : 'icon-add',
-			text : "添加一行",
-			handler : function() {
-				$('#t2').edatagrid('addRow');
-			}
-		}, {
-			iconCls : 'icon-remove',
-			text : "删除一行",
-			handler : function() {
-				$('#t2').edatagrid('destroyRow');
-			}
-		}, {
-			iconCls : 'icon-save',
-			text : "保存数据",
-			handler : function() {
-				$('#t2').edatagrid('saveRow');
-			}
-		}, {
-			iconCls : 'icon-cancel',
-			text : "放弃修改",
-			handler : function() {
-				$('#t2').edatagrid('cancelRow');
-			}
-		} ]
-
-	});
+	initTable1();
+	initTable2();
 	changeTitle("酒店");
 });
 function addRoom() {
@@ -222,4 +167,186 @@ function addGroup() {
 }
 function changeTitle(title) {
 	$("#table2 .panel-title").html("当前房间：" + title);
+}
+function initTable1() {
+	$('#tt').edatagrid(
+			{
+				url : getUrl_table1_getAllByPages(),
+				toolbar : [ {
+					iconCls : 'icon-add',
+					text : "添加一行",
+					handler : function() {
+						$('#tt').edatagrid('addRow');
+					}
+				}, {
+					iconCls : 'icon-remove',
+					text : "删除一行",
+					handler : function() {
+						var select = $('#tt').edatagrid('getSelected');
+						if(select){
+							$.messager.confirm('删除', '您确认删除吗？', function(r) {
+								if (r) {
+									$.ajax({
+										type : "POST",
+										url : url_table1_del,
+										data : select,
+										cache : false,
+										dataType : "text",
+										success : function(data) {
+											if (data&&data.indexOf('失败') != -1) {
+												$.messager.alert('警告', data);
+											}
+											table1_reload();
+										},
+										error : function(e) {
+											$.messager.alert('警告','删除失败');
+											table1_reload();
+										}
+									});
+								}
+							});
+						}
+					}
+				}, {
+					iconCls : 'icon-save',
+					text : "保存数据",
+					handler : function() {
+						$('#tt').edatagrid('saveRow');
+					}
+				}, {
+					iconCls : 'icon-cancel',
+					text : "放弃修改",
+					handler : function() {
+						$('#tt').edatagrid('cancelRow');
+					}
+				} ],
+				onAfterEdit : function(rowIndex, rowData, changes) {
+					$.ajax({
+						type : "POST",
+						url : rowData.isNewRecord ? url_table1_save
+								: url_table1_update,
+						data : rowData,
+						cache : false,
+						dataType : "text",
+						success : function(data) {
+							if (data&&data.indexOf('失败') != -1) {
+								$.messager.alert('警告', data);
+							}
+							table1_reload();
+						},
+						error : function(e) {
+							$.messager.alert('警告', rowData.isNewRecord ?'添加失败':'更新失败');
+							table1_reload();
+						}
+					})
+				}
+			});
+
+	$('#page1').pagination({
+		total : roomTypeCount,
+		onBeforeRefresh : function(pageNumber, pageSize) {
+			t1_pageNumber = pageNumber;
+			t1_pageSize = pageSize;
+			table1_reload();
+		},
+		onSelectPage : function(pageNumber, pageSize) {
+			t1_pageNumber = pageNumber;
+			t1_pageSize = pageSize;
+			table1_reload();
+		},
+		onChangePageSize : function(pageSize) {
+			t1_pageSize = pageSize;
+			table1_reload();
+		}
+	});
+
+}
+
+function initTable2(){
+	$('#t2').edatagrid({
+		url : getUrl_table2_getAllByPages(),
+		toolbar : [ {
+			iconCls : 'icon-add',
+			text : "添加一行",
+			handler : function() {
+				$('#t2').edatagrid('addRow');
+			}
+		}, {
+			iconCls : 'icon-remove',
+			text : "删除一行",
+			handler : function() {
+				$('#t2').edatagrid('destroyRow');
+			}
+		}, {
+			iconCls : 'icon-save',
+			text : "保存数据",
+			handler : function() {
+				$('#t2').edatagrid('saveRow');
+			}
+		}, {
+			iconCls : 'icon-cancel',
+			text : "放弃修改",
+			handler : function() {
+				$('#t2').edatagrid('cancelRow');
+			}
+		} ]
+
+	});
+	$('#page2').pagination({
+		total : roomCount,
+		onBeforeRefresh : function(pageNumber, pageSize) {
+			t2_pageNumber = pageNumber;
+			t2_pageSize = pageSize;
+			table2_reload();
+		},
+		onSelectPage : function(pageNumber, pageSize) {
+			t2_pageNumber = pageNumber;
+			t2_pageSize = pageSize;
+			table2_reload();
+		},
+		onChangePageSize : function(pageSize) {
+			t2_pageSize = pageSize;
+			table2_reload();
+		}
+	});
+}
+function getUrl_table1_getAllByPages() {
+	return url_table1_getAllByPages + t1_pageNumber + '/' + t1_pageSize;
+}
+function getUrl_table2_getAllByPages() {
+	return url_table2_getAllByPages + curr_groupId + "/" + t2_pageNumber + '/' + t2_pageSize;
+}
+function table1_reload() {
+	$('#tt').edatagrid({
+		url : getUrl_table1_getAllByPages()
+	});
+	$('#tt').edatagrid("reload");
+	$.ajax({
+		type : "POST",
+		url : url_table1_getCount,
+		cache : false,
+		dataType : "text",
+		success : function(data) {
+			$('#page1').pagination({
+				total : data
+			});
+		}
+	});
+}
+function table2_reload() {
+	$('#t2').edatagrid({
+		url : getUrl_table2_getAllByPages()
+	});
+	$('#t2').edatagrid("reload");
+	$.ajax({
+		type : "POST",
+		url : url_table2_getCount + curr_groupId,
+		cache : false,
+		dataType : "text",
+		success : function(data) {
+			$('#page2').pagination({
+				total : data
+			});
+		}
+	})
 }

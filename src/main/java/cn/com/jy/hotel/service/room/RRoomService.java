@@ -19,5 +19,5 @@ import cn.com.jy.hotel.service.BaseService;
  *  
  */
 public interface RRoomService extends BaseService<RRoom>{
-
+	public Long getCountByGroupId(Short group_id ,boolean useCache) throws Exception;
 }
