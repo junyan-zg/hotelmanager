@@ -39,6 +39,7 @@ $(function() {
 				}
 				str = parent.text + " - " + str;
 			}
+			title = str;
 			changeTitle(str);
 		}
 	});
@@ -46,6 +47,7 @@ $(function() {
 	initTable2();
 	changeTitle("酒店");
 });
+var title;
 function addRoom() {
 	$('#t2').edatagrid('addRow');
 }
@@ -275,7 +277,30 @@ function initTable2(){
 			iconCls : 'icon-remove',
 			text : "删除一行",
 			handler : function() {
-				$('#t2').edatagrid('destroyRow');
+				var select = $('#t2').edatagrid('getSelected');
+				if(select){
+					$.messager.confirm('删除', '您确认删除吗？', function(r) {
+						if (r) {
+							$.ajax({
+								type : "POST",
+								url : url_table2_del,
+								data : select,
+								cache : false,
+								dataType : "text",
+								success : function(data) {
+									if (data&&data.indexOf('失败') != -1) {
+										$.messager.alert('警告', data);
+									}
+									table2_reload();
+								},
+								error : function(e) {
+									$.messager.alert('警告','删除失败');
+									table2_reload();
+								}
+							});
+						}
+					});
+				}
 			}
 		}, {
 			iconCls : 'icon-save',
@@ -289,8 +314,30 @@ function initTable2(){
 			handler : function() {
 				$('#t2').edatagrid('cancelRow');
 			}
-		} ]
-
+		} ],
+		onAfterEdit : function(rowIndex, rowData, changes) {
+			if(rowData.group_id==null){
+				rowData.group_id = curr_groupId;
+			}
+			$.ajax({
+				type : "POST",
+				url : rowData.isNewRecord ? url_table2_save
+						: url_table2_update,
+				data : rowData,
+				cache : false,
+				dataType : "text",
+				success : function(data) {
+					if (data&&data.indexOf('失败') != -1) {
+						$.messager.alert('警告', data);
+					}
+					table2_reload();
+				},
+				error : function(e) {
+					$.messager.alert('警告', rowData.isNewRecord ?'添加失败':'更新失败');
+					table2_reload();
+				}
+			})
+		}
 	});
 	$('#page2').pagination({
 		total : roomCount,
@@ -348,5 +395,6 @@ function table2_reload() {
 				total : data
 			});
 		}
-	})
+	});
+	changeTitle(title);
 }

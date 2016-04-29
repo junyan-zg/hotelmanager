@@ -95,7 +95,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> queryByConditions(String where, String[] whereArgs,
+	public List<T> queryByConditions(String where, Serializable[] whereArgs,
 			String groupBy, String orderBy, Integer limitOffset,
 			Integer limitCount, boolean useCache) throws Exception {
 
@@ -125,6 +125,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		if (limitOffset != null && limitCount != null) {
 			query.setFirstResult(limitOffset);
 			query.setMaxResults(limitCount);
+		}
+		for (int i = 0; i < whereArgs.length; i++) {
+			query.setParameter(i, whereArgs[i]);
 		}
 		return query.setCacheable(useCache).list();
 	}

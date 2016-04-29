@@ -17,11 +17,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.com.jy.hotel.data.Helper;
+import cn.com.jy.hotel.data.RoomStatusMap;
 import cn.com.jy.hotel.domain.room.RRoom;
 import cn.com.jy.hotel.domain.room.RRoomType;
+import cn.com.jy.hotel.domain.room.sub.RRoomSub;
 import cn.com.jy.hotel.domain.room.sub.RRoomTypeSub;
 import cn.com.jy.hotel.domain.room.sub.RRoomTypeSubForSelect;
 import cn.com.jy.hotel.exception.MyException;
+import cn.com.jy.hotel.service.room.RRoomGroupService;
 import cn.com.jy.hotel.service.room.RRoomService;
 import cn.com.jy.hotel.service.room.RRoomTypeService;
 
@@ -39,6 +43,8 @@ public class RoomController {
 	private RRoomTypeService rRoomTypeService;
 	@Resource
 	private RRoomService rRoomService;
+	@Resource
+	private RRoomGroupService rRoomGroupService;
 
 	@ResponseBody
 	@RequestMapping("/getRoomCount/{group_id}")
@@ -54,40 +60,54 @@ public class RoomController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/getRoomTypeByPages/{group_id}/{pageNumber}/{pageSize}")
-	public List<RRoom> getRoomAllByPages(@PathVariable Long group_id,
+	@RequestMapping("/getRoomAllByPages/{group_id}/{pageNumber}/{pageSize}")
+	public List<RRoomSub> getRoomAllByPages(@PathVariable Short group_id,
 			@PathVariable Integer pageNumber,
 			@PathVariable Integer pageSize) throws Exception {
-		return null;
+		return rRoomService.getRoomAllByPages(group_id, pageNumber, pageSize);
+	}
+	@ResponseBody
+	@RequestMapping("/getRoomStatusAll")
+	public List<Helper> getRoomStatusAll() throws Exception {
+		return RoomStatusMap.getHelperList();
 	}
 
-	/*@ResponseBody
+	@ResponseBody
 	@RequestMapping("/addRoom")
-	public void addRoomType(RRoom rRoomType) throws Exception {
+	public void addRoom(RRoomSub rRoomSub) throws Exception {
+		RRoom rRoom = new RRoom();
+		rRoom.setRRoomGroup(rRoomGroupService.getById(rRoomSub.getGroup_id()));
+		rRoom.setRoomNumber(rRoomSub.getRoomNumber());
+		rRoom.setRRoomType(rRoomTypeService.queryByUniqueKey("roomTypeName", rRoomSub.getRoomTypeName()));
+		rRoom.setRoomStatus(RoomStatusMap.getByte(rRoomSub.getRoomStatusName()));
 		try {
-			rRoomTypeService.add(rRoomType);
+			rRoomService.add(rRoom);
 		} catch (Exception e) {
-			throw new MyException("添加失败，已存在一个同名的房间类型名称", (short) 0);
+			throw new MyException("添加失败，该区域下已存在一个同名的房间", (short) 0);
 		}
 	}
 
 	@ResponseBody
-	@RequestMapping("/updateRoomType")
-	public void updateRoomType(RRoomType rRoomType) throws Exception {
+	@RequestMapping("/updateRoom")
+	public void updateRoom(RRoomSub roomSub) throws Exception {
+		RRoom rRoom = rRoomService.getById(roomSub.getId());
+		rRoom.setRoomNumber(roomSub.getRoomNumber());
+		rRoom.setRRoomType(rRoomTypeService.queryByUniqueKey("roomTypeName", roomSub.getRoomTypeName()));
+		rRoom.setRoomStatus(RoomStatusMap.getByte(roomSub.getRoomStatusName()));
 		try {
-			rRoomTypeService.update(rRoomType);
+			rRoomService.update(rRoom);
 		} catch (Exception e) {
-			throw new MyException("更新失败，已存在一个同名的房间类型名称", (short) 0);
+			throw new MyException("更新失败，该区域下已存在一个同名的房间", (short) 0);
 		}
 	}
 
 	@ResponseBody
-	@RequestMapping("/delRoomType")
-	public void delRoomType(Short id) throws Exception {
+	@RequestMapping("/delRoom")
+	public void delRoom(Integer id) throws Exception {
 		try {
-			rRoomTypeService.delete(id);
+			rRoomService.delete(id);
 		} catch (Exception e) {
-			throw new MyException("删除失败，因为存在该房间类型的房间", (short) 0);
+			throw new MyException("删除失败", (short) 0);
 		}
-	}*/
+	}
 }

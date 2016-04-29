@@ -28,10 +28,10 @@
 	var t2_pageSize = 10;
 	var curr_groupId = 0;
 	var url_table2_getCount = '${pageContext.request.contextPath}/su/system/getRoomCount/';
-	var url_table2_getAllByPages = '${pageContext.request.contextPath}/su/system/getRoomTypeByPages/';
-	var url_table2_save = '${pageContext.request.contextPath}/su/system/addRoomType';
-	var url_table2_update = '${pageContext.request.contextPath}/su/system/updateRoomType';
-	var url_table2_del = '${pageContext.request.contextPath}/su/system/delRoomType';
+	var url_table2_getAllByPages = '${pageContext.request.contextPath}/su/system/getRoomAllByPages/';
+	var url_table2_save = '${pageContext.request.contextPath}/su/system/addRoom';
+	var url_table2_update = '${pageContext.request.contextPath}/su/system/updateRoom';
+	var url_table2_del = '${pageContext.request.contextPath}/su/system/delRoom';
 </script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/su/system/roomManager.js"></script>
@@ -87,19 +87,18 @@
 					</td>
 					<td style="width: 100%;" id="table2">
 							<table id="t2" toolbar="#toolbar" rownumbers="true"
-								fitColumns="true" singleSelect="true">
+								fitColumns="true" singleSelect="true" title="1">
 								<thead>
 									<tr>
 										<th field="id" hidden="true">id</th>
-										<th field="RRoomGroup.id" hidden="true">RRoomGroup</th>
-										<th field="roomNumber" width="25%" align="center"
+										<th field="group_id" hidden="true">group_id</th>
+										<th field="roomNumber" width="34%" align="center"
 											editor="{type:'validatebox',options:{required:true}}">房间号</th>
-										<!-- <th field="maxPeople" width="20%" align="center"
-											editor="{type:'numberbox',options:{required:true,min:1,precision:0,max:65535,groupSeparator:','}}">可容纳最大人数</th> -->
-										<th field="RRoomType.id" width="20%" align="center"
+										<th field="roomTypeName" width="33%" align="center"
 											editor="{type:'combobox',options:{required:true,valueField:'roomTypeName',textField:'roomTypeName',url:'${pageContext.request.contextPath}/su/system/getRoomTypeAll',editable:false,panelHeight:65}}">房间类型</th>
-										<th field="description" width="35%" align="center"
-											editor="{type:'validatebox'}">描述</th>
+										<th field="roomStatusName" width="33%" align="center"
+											editor="{type:'combobox',options:{required:true,valueField:'value',textField:'value',url:'${pageContext.request.contextPath}/su/system/getRoomStatusAll',editable:false,panelHeight:45}}">房间状态</th>
+
 									</tr>
 								</thead>
 							</table>

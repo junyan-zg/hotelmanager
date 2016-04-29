@@ -17,7 +17,7 @@ public interface BaseDao<T> {
 
 	public List<T> getAll(boolean useCache) throws Exception;
 
-	public List<T> queryByConditions(String where, String[] whereArgs,
+	public List<T> queryByConditions(String where, Serializable[] whereArgs,
 			String groupBy, String orderBy, Integer limitOffset,
 			Integer limitCount,boolean useCache) throws Exception;
 	

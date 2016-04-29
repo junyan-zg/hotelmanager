@@ -19,10 +19,13 @@ import org.junit.Test;
 
 import com.sun.tools.classfile.StackMapTable_attribute.same_frame;
 
+import cn.com.jy.hotel.domain.room.RRoom;
+import cn.com.jy.hotel.domain.room.RRoomGroup;
 import cn.com.jy.hotel.domain.room.RRoomType;
 import cn.com.jy.hotel.domain.system.SysPrivilege;
 import cn.com.jy.hotel.domain.system.SysRole;
 import cn.com.jy.hotel.service.room.RRoomGroupService;
+import cn.com.jy.hotel.service.room.RRoomService;
 import cn.com.jy.hotel.service.room.RRoomTypeService;
 import cn.com.jy.hotel.service.system.SysRoleService;
 import cn.com.jy.hotel.test.service.BaseTest;
@@ -43,6 +46,8 @@ public class SysRoleTest extends BaseTest{
 	private RRoomGroupService rRoomGroupService;
 	@Resource
 	private RRoomTypeService rRoomTypeService;
+	@Resource
+	private RRoomService rRoomService;
 	/* (non-Javadoc)
 	* <p>Title: add</p> 
 	* <p>Description: </p>  
@@ -158,6 +163,13 @@ public class SysRoleTest extends BaseTest{
 		for (int i = 0; i < 233; i++) {
 			RRoomType roomType = new RRoomType("单人房"+i, (short)1, new BigDecimal(200));
 			rRoomTypeService.add(roomType);
+		}
+	}
+	@Test
+	public void hh3() throws Exception{
+		for (int i = 0; i < 233; i++) {
+			RRoom rRoom = new RRoom(rRoomGroupService.getById((short)4), rRoomTypeService.getById((short)3), "abc"+i, (byte)1, null, null);
+			rRoomService.add(rRoom);
 		}
 	}
 }

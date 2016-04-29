@@ -47,7 +47,7 @@ public class RRoomTypeServiceImpl extends BaseServiceImpl<RRoomType> implements
 			throws Exception {
 		Long count = getBaseDao().getCount(true);
 
-		PageResult<RRoomType> pageResult = new PageResult<RRoomType>(
+		PageResult pageResult = new PageResult(
 				pageNumber, pageSize, count);
 
 		return rRoomTypeDao.queryReturnSub((int)pageResult.getLimitOffset(), (int)pageResult.getPageSize(), true);

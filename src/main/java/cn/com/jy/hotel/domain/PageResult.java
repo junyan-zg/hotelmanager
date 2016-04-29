@@ -1,6 +1,5 @@
 package cn.com.jy.hotel.domain;
 
-import java.util.List;
 
 /**
  * 
@@ -8,13 +7,13 @@ import java.util.List;
  * 把查询后的分页结果封装到PageResult
  * 
  */
-public class PageResult<T> {
+public class PageResult/*<T>*/ {
 	
 	private long currentPage;		//主表的当前页码
 	private long pageSize;			// 一页显示的条数
 	private long totalRows;			// 总条数
 	private long totalPages;			// 总页数:计算出来
-	private List<T> rows = null;	// 当前页的数据
+	//private List<T> rows = null;	// 当前页的数据
 
 	public PageResult() {
 
@@ -68,13 +67,13 @@ public class PageResult<T> {
 		this.totalPages = totalPages;
 	}
 
-	public List<T> getRows() {
+	/*public List<T> getRows() {
 		return rows;
 	}
 
 	public void setRows(List<T> rows) {
 		this.rows = rows;
-	}
+	}*/
 	public long getLimitOffset(){
 		return (this.currentPage-1)*this.pageSize;
 	}
