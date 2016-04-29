@@ -36,4 +36,9 @@ public class NavSysController {
 		request.setAttribute("roomTypeCount", rRoomTypeService.getCount(true));
 		return "/su/system/roomManager";
 	}
+	@RequestMapping("/roomPayMethod")
+	public String roomPayMethod(HttpServletRequest request) throws Exception{
+		//request.setAttribute("roomTypeCount", rRoomTypeService.getCount(true));
+		return "/su/system/roomPayMethod";
+	}
 }

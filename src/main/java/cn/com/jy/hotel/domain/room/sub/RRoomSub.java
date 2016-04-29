@@ -8,6 +8,8 @@
  */
 package cn.com.jy.hotel.domain.room.sub;
 
+import java.io.Serializable;
+
 import cn.com.jy.hotel.data.RoomStatusMap;
 import cn.com.jy.hotel.domain.room.RRoom;
 
@@ -18,7 +20,7 @@ import cn.com.jy.hotel.domain.room.RRoom;
  * @date 2016年4月29日 下午2:31:38
  * 
  */
-public class RRoomSub {
+public class RRoomSub implements Serializable{
 	private Integer id;
 	private Short group_id;
 	private String roomNumber;
