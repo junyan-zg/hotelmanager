@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.com.jy.hotel.domain.room.RRoomType;
 import cn.com.jy.hotel.domain.room.sub.RRoomTypeSub;
+import cn.com.jy.hotel.domain.room.sub.RRoomTypeSubForSelect;
 import cn.com.jy.hotel.exception.MyException;
 import cn.com.jy.hotel.service.room.RRoomTypeService;
 
@@ -77,5 +78,12 @@ public class RoomTypeController {
 		} catch (Exception e) {
 			throw new MyException("删除失败，因为存在该房间类型的房间", (short) 0);
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getRoomTypeAll")
+	public List<RRoomTypeSubForSelect> getRoomTypeAllForSelect()
+			throws Exception {
+		return rRoomTypeService.getRoomTypeAllForSelect();
 	}
 }

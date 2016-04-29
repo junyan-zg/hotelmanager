@@ -10,6 +10,7 @@ package cn.com.jy.hotel.domain.room.sub;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import cn.com.jy.hotel.data.RoomPayMethodStatusMap;
@@ -74,14 +75,16 @@ public class RoomPayMethodSub2 implements Serializable{
 	public void setPayType(Byte payType) {
 		this.payType = payType;
 	}
-	public Date getCheckInTime() {
-		return checkInTime;
+	public String getCheckInTime() {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		return sdf.format(checkInTime);
 	}
 	public void setCheckInTime(Date checkInTime) {
 		this.checkInTime = checkInTime;
 	}
-	public Date getCheckOutTime() {
-		return checkOutTime;
+	public String getCheckOutTime() {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		return sdf.format(checkOutTime);
 	}
 	public void setCheckOutTime(Date checkOutTime) {
 		this.checkOutTime = checkOutTime;

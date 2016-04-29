@@ -9,6 +9,7 @@
 package cn.com.jy.hotel.test.service.system;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -21,10 +22,12 @@ import com.sun.tools.classfile.StackMapTable_attribute.same_frame;
 
 import cn.com.jy.hotel.domain.room.RRoom;
 import cn.com.jy.hotel.domain.room.RRoomGroup;
+import cn.com.jy.hotel.domain.room.RRoomPayMethod;
 import cn.com.jy.hotel.domain.room.RRoomType;
 import cn.com.jy.hotel.domain.system.SysPrivilege;
 import cn.com.jy.hotel.domain.system.SysRole;
 import cn.com.jy.hotel.service.room.RRoomGroupService;
+import cn.com.jy.hotel.service.room.RRoomPayMethodService;
 import cn.com.jy.hotel.service.room.RRoomService;
 import cn.com.jy.hotel.service.room.RRoomTypeService;
 import cn.com.jy.hotel.service.system.SysRoleService;
@@ -48,6 +51,8 @@ public class SysRoleTest extends BaseTest{
 	private RRoomTypeService rRoomTypeService;
 	@Resource
 	private RRoomService rRoomService;
+	@Resource
+	private RRoomPayMethodService rRoomPayMethodService;
 	/* (non-Javadoc)
 	* <p>Title: add</p> 
 	* <p>Description: </p>  
@@ -170,6 +175,23 @@ public class SysRoleTest extends BaseTest{
 		for (int i = 0; i < 233; i++) {
 			RRoom rRoom = new RRoom(rRoomGroupService.getById((short)4), rRoomTypeService.getById((short)3), "abc"+i, (byte)1, null, null);
 			rRoomService.add(rRoom);
+		}
+	}
+	
+	@Test
+	public void hh4() throws Exception{
+		for (int i = 0; i < 233; i++) {
+			rRoomPayMethodService.add(new RRoomPayMethod(rRoomTypeService.getById((short)4), "hh4--"+i, 60, new BigDecimal(60), 60,new BigDecimal(50), 40, new BigDecimal(40), (byte)0, (byte)0, null, null, null, null));
+		}
+	}
+	
+	@Test
+	public void hh5() throws Exception{
+		Date date = new Date();
+		Date date2 = new Date(date.getTime());
+		date2.setDate(date2.getDate()+1);
+		for (int i = 0; i < 233; i++) {
+			rRoomPayMethodService.add(new RRoomPayMethod(rRoomTypeService.getById((short)4), "hh5--"+i, null, null, null,null, null, null, (byte)0, (byte)1, date, date2, new BigDecimal(300), null));
 		}
 	}
 }

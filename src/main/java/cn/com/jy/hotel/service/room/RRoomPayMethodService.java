@@ -8,6 +8,8 @@
 */ 
 package cn.com.jy.hotel.service.room;
 
+import java.util.List;
+
 import cn.com.jy.hotel.domain.room.RRoomPayMethod;
 import cn.com.jy.hotel.service.BaseService;
 
@@ -19,5 +21,7 @@ import cn.com.jy.hotel.service.BaseService;
  *  
  */
 public interface RRoomPayMethodService extends BaseService<RRoomPayMethod>{
-
+	public Long getRoomPayMethodCount(Byte payType,boolean useCache) throws Exception;
+	public List<?> getRoomPayMethodAllByPages(Byte payType,Integer pageNumber,
+			Integer pageSize,boolean useCache) throws Exception;
 }

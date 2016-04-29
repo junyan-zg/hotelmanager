@@ -91,7 +91,7 @@ public class RRoomPayMethod implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "room_type_id", nullable = false)
 	public RRoomType getRRoomType() {
 		return this.RRoomType;

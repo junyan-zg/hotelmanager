@@ -19,5 +19,6 @@ import cn.com.jy.hotel.domain.room.RRoomPayMethod;
  *  
  */
 public interface RRoomPayMethodDao extends BaseDao<RRoomPayMethod>{
+	public Long getRoomPayMethodCount(Byte payType,boolean useCache) throws Exception;
 
 }

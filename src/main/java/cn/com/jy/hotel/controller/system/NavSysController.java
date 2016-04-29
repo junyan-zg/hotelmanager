@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.com.jy.hotel.domain.room.RRoomType;
+import cn.com.jy.hotel.service.room.RRoomPayMethodService;
 import cn.com.jy.hotel.service.room.RRoomTypeService;
 
 /** 
@@ -30,6 +30,8 @@ public class NavSysController {
 
 	@Resource
 	private RRoomTypeService rRoomTypeService;
+	@Resource
+	private RRoomPayMethodService rRoomPayMethodService;
 	
 	@RequestMapping("/roomManager")
 	public String roomManager(HttpServletRequest request) throws Exception{
@@ -38,7 +40,8 @@ public class NavSysController {
 	}
 	@RequestMapping("/roomPayMethod")
 	public String roomPayMethod(HttpServletRequest request) throws Exception{
-		//request.setAttribute("roomTypeCount", rRoomTypeService.getCount(true));
+		request.setAttribute("roomPayMethodCount0", rRoomPayMethodService.getRoomPayMethodCount((byte)0, true));
+		request.setAttribute("roomPayMethodCount1", rRoomPayMethodService.getRoomPayMethodCount((byte)1, true));
 		return "/su/system/roomPayMethod";
 	}
 }

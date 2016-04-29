@@ -18,19 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.com.jy.hotel.data.Helper;
-import cn.com.jy.hotel.data.RoomStatusMap;
-import cn.com.jy.hotel.domain.room.RRoom;
-import cn.com.jy.hotel.domain.room.RRoomType;
-import cn.com.jy.hotel.domain.room.sub.RRoomSub;
-import cn.com.jy.hotel.domain.room.sub.RRoomTypeSub;
-import cn.com.jy.hotel.domain.room.sub.RRoomTypeSubForSelect;
-import cn.com.jy.hotel.exception.MyException;
-import cn.com.jy.hotel.service.room.RRoomGroupService;
-import cn.com.jy.hotel.service.room.RRoomService;
+import cn.com.jy.hotel.data.RoomPayMethodStatusMap;
+import cn.com.jy.hotel.service.room.RRoomPayMethodService;
 import cn.com.jy.hotel.service.room.RRoomTypeService;
 
 /**
- * @ClassName: RoomController
+ * @ClassName: RoomPayMethodController
  * @Description: TODO
  * @author zjy
  * @date 2016年4月25日 上午2:36:54
@@ -38,35 +31,32 @@ import cn.com.jy.hotel.service.room.RRoomTypeService;
  */
 @Controller
 @RequestMapping("/su/system")
-public class RoomController {
+public class RoomPayMethodController {
 	@Resource
 	private RRoomTypeService rRoomTypeService;
 	@Resource
-	private RRoomService rRoomService;
-	@Resource
-	private RRoomGroupService rRoomGroupService;
+	private RRoomPayMethodService rRoomPayMethodService;
 
 	@ResponseBody
-	@RequestMapping("/getRoomCount/{group_id}")
-	public Long getRoomCount(@PathVariable Short group_id) throws Exception {
-		return rRoomService.getCountByGroupId(group_id, true);
+	@RequestMapping("/getRoomPayMethodCount/{payType}")
+	public Long getRoomPayMethodCount(@PathVariable Byte payType) throws Exception {
+		return rRoomPayMethodService.getRoomPayMethodCount(payType, true);
 	}
 
-
 	@ResponseBody
-	@RequestMapping("/getRoomAllByPages/{group_id}/{pageNumber}/{pageSize}")
-	public List<RRoomSub> getRoomAllByPages(@PathVariable Short group_id,
+	@RequestMapping("/getRoomPayMethodAllByPages/{payType}/{pageNumber}/{pageSize}")
+	public List<?> getRoomPayMethodAllByPages(@PathVariable Byte payType,
 			@PathVariable Integer pageNumber,
 			@PathVariable Integer pageSize) throws Exception {
-		return rRoomService.getRoomAllByPages(group_id, pageNumber, pageSize);
+		return rRoomPayMethodService.getRoomPayMethodAllByPages(payType, pageNumber, pageSize, true);
 	}
 	@ResponseBody
-	@RequestMapping("/getRoomStatusAll")
+	@RequestMapping("/getRoomPayMethodStatusAll")
 	public List<Helper> getRoomStatusAll() throws Exception {
-		return RoomStatusMap.getHelperList();
+		return RoomPayMethodStatusMap.getHelperList();
 	}
 
-	@ResponseBody
+/*	@ResponseBody
 	@RequestMapping("/addRoom")
 	public void addRoom(RRoomSub rRoomSub) throws Exception {
 		RRoom rRoom = new RRoom();
@@ -103,5 +93,5 @@ public class RoomController {
 		} catch (Exception e) {
 			throw new MyException("删除失败", (short) 0);
 		}
-	}
+	}*/
 }
