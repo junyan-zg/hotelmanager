@@ -14,18 +14,18 @@
 	var t1_pageSize = 10;
 	var url_table1_getCount = '${pageContext.request.contextPath}/su/system/getRoomPayMethodCount/0';
 	var url_table1_getAllByPages = '${pageContext.request.contextPath}/su/system/getRoomPayMethodAllByPages/0/';
-	var url_table1_save = '${pageContext.request.contextPath}/su/system/addRoomType';
-	var url_table1_update = '${pageContext.request.contextPath}/su/system/updateRoomType';
-	var url_table1_del = '${pageContext.request.contextPath}/su/system/delRoomType';
+	var url_table1_save = '${pageContext.request.contextPath}/su/system/addRoomPayMethod1';
+	var url_table1_update = '${pageContext.request.contextPath}/su/system/updateRoomPayMethod1';
+	var url_table1_del = '${pageContext.request.contextPath}/su/system/delRoomPayMethod';
 
 	var roomPayMethodCount1 = ${roomPayMethodCount1};
 	var t2_pageNumber = 1;
 	var t2_pageSize = 10;
 	var url_table2_getCount = '${pageContext.request.contextPath}/su/system/getRoomPayMethodCount/1';
 	var url_table2_getAllByPages = '${pageContext.request.contextPath}/su/system/getRoomPayMethodAllByPages/1/';
-	var url_table2_save = '${pageContext.request.contextPath}/su/system/addRoom';
-	var url_table2_update = '${pageContext.request.contextPath}/su/system/updateRoom';
-	var url_table2_del = '${pageContext.request.contextPath}/su/system/delRoom';
+	var url_table2_save = '${pageContext.request.contextPath}/su/system/addRoomPayMethod2';
+	var url_table2_update = '${pageContext.request.contextPath}/su/system/updateRoomPayMethod2';
+	var url_table2_del = '${pageContext.request.contextPath}/su/system/delRoomPayMethod';
 </script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/su/system/roomPayMethod.js"></script>
@@ -71,7 +71,7 @@
 
 		</div>
 		<div title="过夜房付费方案" data-options="closable:false"
-			style="overflow: auto; padding: 10px; background-color: transparent;">
+			style="overflow: auto; padding: 20px 5px; background-color: transparent;">
 			<div style="width: 100%;">
 				<table id="table2" toolbar="#toolbar" rownumbers="true"
 					fitColumns="true" singleSelect="true">

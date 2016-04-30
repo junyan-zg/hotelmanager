@@ -11,7 +11,6 @@ package cn.com.jy.hotel.domain.room.sub;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import cn.com.jy.hotel.data.RoomPayMethodStatusMap;
 import cn.com.jy.hotel.domain.room.RRoomPayMethod;
@@ -29,21 +28,22 @@ public class RoomPayMethodSub2 implements Serializable{
 	private String payMethodName;//方案名称（如状态为已删则要在方案名称加上(已删+时间戳)
 	private String statusName;//方案状态（0正常使用1停用2删除）
 	private Byte payType = (byte)1;
-	private Date checkInTime;//入住时间（当天某个时间点）
-	private Date checkOutTime;//退房时间（明天某个时间点）
+	private String checkInTime;//入住时间（当天某个时间点）
+	private String checkOutTime;//退房时间（明天某个时间点）
 	private BigDecimal dayPrice;//日总价
 	public RoomPayMethodSub2(){
 		
 	}
 	public RoomPayMethodSub2(RRoomPayMethod rRoomPayMethod){
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 		this.id = rRoomPayMethod.getId();
 		this.roomTypeName = rRoomPayMethod.getRRoomType().getRoomTypeName();
 		this.payMethodName = rRoomPayMethod.getPayMethodName();
 		this.statusName = RoomPayMethodStatusMap.getString(rRoomPayMethod.getStatus());
 		this.payType = rRoomPayMethod.getPayType();
-		this.checkInTime = rRoomPayMethod.getCheckInTime();
+		this.checkInTime = sdf.format(rRoomPayMethod.getCheckInTime());
 		this.dayPrice = rRoomPayMethod.getDayPrice();
-		this.checkOutTime = rRoomPayMethod.getCheckOutTime();
+		this.checkOutTime = sdf.format(rRoomPayMethod.getCheckOutTime());
 	}
 	public Short getId() {
 		return id;
@@ -76,17 +76,15 @@ public class RoomPayMethodSub2 implements Serializable{
 		this.payType = payType;
 	}
 	public String getCheckInTime() {
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-		return sdf.format(checkInTime);
+		return checkInTime;
 	}
-	public void setCheckInTime(Date checkInTime) {
+	public void setCheckInTime(String checkInTime) {
 		this.checkInTime = checkInTime;
 	}
 	public String getCheckOutTime() {
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-		return sdf.format(checkOutTime);
+		return checkOutTime;
 	}
-	public void setCheckOutTime(Date checkOutTime) {
+	public void setCheckOutTime(String checkOutTime) {
 		this.checkOutTime = checkOutTime;
 	}
 	public BigDecimal getDayPrice() {

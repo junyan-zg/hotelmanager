@@ -222,9 +222,6 @@ function initTable2() {
 									}
 								} ],
 						onAfterEdit : function(rowIndex, rowData, changes) {
-							if (rowData.group_id == null) {
-								rowData.group_id = curr_groupId;
-							}
 							$.ajax({
 								type : "POST",
 								url : rowData.isNewRecord ? url_table2_save
