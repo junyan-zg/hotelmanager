@@ -1,4 +1,7 @@
 @CHARSET "UTF-8";
 .header-margin-left{
-	margin-left: 5px;
+	margin-left: 20px;
+}
+#f_room{
+	background-color: white;
 }
