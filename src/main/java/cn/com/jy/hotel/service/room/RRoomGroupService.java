@@ -24,6 +24,7 @@ import cn.com.jy.hotel.service.BaseService;
  */
 public interface RRoomGroupService extends BaseService<RRoomGroup>{
 	public List<Tree> getAllRoomGroup() throws Exception;
+	public String getAllRoomGroupHtml() throws Exception;
 	public void updateRoomGroup(Short id,String newName)throws Exception;
 	public void addRoomGroup(Short pid,String name)throws Exception;
 	public void delroomGroup(Short pid)throws Exception;

@@ -36,7 +36,7 @@
 <table id=child1 style="display: block" cellspacing=0 cellpadding=0 width=145 border=0>
     <tr height=20>
         <td align="left" width="30px"><img height=9 src="${pageContext.request.contextPath}/images/su/index/menu_icon.gif" width=9></td>
-        <td class="childTd"><a href="#" target=right>查看房间</a></td>
+        <td class="childTd"><a href="${pageContext.request.contextPath}/su/room/getShowRooms" target=right>查看房间</a></td>
     </tr>
     <tr height=20>
         <td align="left" width="30px"><img height=9 src="${pageContext.request.contextPath}/images/su/index/menu_icon.gif" width=9></td>

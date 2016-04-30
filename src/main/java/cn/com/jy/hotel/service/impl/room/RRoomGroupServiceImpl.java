@@ -132,13 +132,46 @@ public class RRoomGroupServiceImpl extends BaseServiceImpl<RRoomGroup>
 	}
 
 	private void recurseChild(List<Tree> list, Set<Short> ids) {
-		if (list==null||list.size()==0) {
+		if (list == null || list.size() == 0) {
 			return;
 		}
 		for (Tree tree : list) {
 			ids.add(tree.getId());
 			recurseChild(tree.getChildren(), ids);
 		}
+	}
+
+	@Override
+	public String getAllRoomGroupHtml() throws Exception {
+		
+		return recursion(getAllRoomGroup().get(0).getChildren()).toString();
+	}
+
+	private static String recursion(List<Tree> trees) {
+		StringBuffer stringBuffer = new StringBuffer();
+		if (trees != null) {
+			for (Tree tree : trees) {
+				if (tree.getChildren() != null && tree.getChildren().size() > 0) {
+					stringBuffer.append("<div id='");
+					stringBuffer.append(tree.getId());
+					stringBuffer.append("' data-options=\"iconCls:'icon-house2'\">");
+					stringBuffer.append("<span>");
+					stringBuffer.append(tree.getText());
+					stringBuffer.append("</span>");
+					stringBuffer.append("<div style='width:100px;'>");
+					stringBuffer.append(recursion(tree.getChildren()));
+					stringBuffer.append("</div>");
+					stringBuffer.append("</div>");
+				} else {
+					stringBuffer.append("<div id='"); 
+					stringBuffer.append(tree.getId());
+					stringBuffer.append("' data-options=\"iconCls:'icon-house2'\">");
+					stringBuffer.append(tree.getText()); 
+					stringBuffer.append("</div>");
+				}
+			}
+		}
+		return stringBuffer.toString();
 	}
 
 }

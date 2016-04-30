@@ -20,10 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.com.jy.hotel.data.Helper;
 import cn.com.jy.hotel.data.RoomStatusMap;
 import cn.com.jy.hotel.domain.room.RRoom;
-import cn.com.jy.hotel.domain.room.RRoomType;
 import cn.com.jy.hotel.domain.room.sub.RRoomSub;
-import cn.com.jy.hotel.domain.room.sub.RRoomTypeSub;
-import cn.com.jy.hotel.domain.room.sub.RRoomTypeSubForSelect;
 import cn.com.jy.hotel.exception.MyException;
 import cn.com.jy.hotel.service.room.RRoomGroupService;
 import cn.com.jy.hotel.service.room.RRoomService;
@@ -65,7 +62,6 @@ public class RoomController {
 	public List<Helper> getRoomStatusAll() throws Exception {
 		return RoomStatusMap.getHelperList();
 	}
-
 	@ResponseBody
 	@RequestMapping("/addRoom")
 	public void addRoom(RRoomSub rRoomSub) throws Exception {

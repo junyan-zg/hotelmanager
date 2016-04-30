@@ -86,4 +86,12 @@ public class RoomTypeController {
 			throws Exception {
 		return rRoomTypeService.getRoomTypeAllForSelect();
 	}
+	@ResponseBody
+	@RequestMapping("/getRoomTypeAll2")
+	public List<RRoomTypeSubForSelect> getRoomTypeAllForSelect2()
+			throws Exception {
+		List<RRoomTypeSubForSelect> list = rRoomTypeService.getRoomTypeAllForSelect();
+		list.add(0, new RRoomTypeSubForSelect((short)0, "显示全部"));
+		return list;
+	}
 }
