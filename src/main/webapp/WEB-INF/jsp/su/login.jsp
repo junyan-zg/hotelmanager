@@ -20,11 +20,11 @@
 		<div class="login_padding">
 			<h2>管理员</h2>
 			<label>
-				<input type="text" placeholder="请输入您的账号" name="operatorNumber" id="operatorNumber" class="txt_input txt_input2">
+				<input type="text" placeholder="请输入您的账号" name="operatorNumber" id="operatorNumber" class="txt_input txt_input2" value="10000">
 			</label>
 			<h2>密码</h2>
 			<label>
-				<input type="password" placeholder="请输入您的密码"  name="operatorPwd" id="operatorPwd" class="txt_input">
+				<input type="password" placeholder="请输入您的密码"  name="operatorPwd" id="operatorPwd" class="txt_input" value="123456">
 			</label>
 			<div class="rem_sub">
 				<label>

@@ -21,8 +21,12 @@ import cn.com.jy.hotel.dao.room.RRoomDao;
 import cn.com.jy.hotel.domain.PageResult;
 import cn.com.jy.hotel.domain.room.RRoom;
 import cn.com.jy.hotel.domain.room.sub.RRoomSub;
+import cn.com.jy.hotel.domain.room.sub.RRoomSub2;
+import cn.com.jy.hotel.service.guest.GGuestRoomDetailService;
 import cn.com.jy.hotel.service.impl.BaseServiceImpl;
+import cn.com.jy.hotel.service.room.RRoomGroupService;
 import cn.com.jy.hotel.service.room.RRoomService;
+import cn.com.jy.hotel.service.room.RRoomTypeService;
 
 /**
  * @ClassName: RRoomServiceImpl
@@ -37,6 +41,13 @@ public class RRoomServiceImpl extends BaseServiceImpl<RRoom> implements
 
 	@Resource
 	private RRoomDao rRoomDao;
+	@Resource
+	private GGuestRoomDetailService gGuestRoomDetailService;
+	@Resource
+	private RRoomTypeService rRoomTypeService;
+	@Resource
+	private RRoomGroupService rRoomGroupService;
+	
 
 	@Override
 	protected BaseDao<RRoom> getBaseDao() {
@@ -63,6 +74,12 @@ public class RRoomServiceImpl extends BaseServiceImpl<RRoom> implements
 			rRoomSubs.add(new RRoomSub(rRoom,group_id));
 		}
 		return rRoomSubs;
+	}
+
+	@Override
+	public List<RRoomSub2> getRoomsByConditions(Short groupId, Short typeId,
+			Byte statusId, String roomNumber) throws Exception {
+		return null;
 	}
 
 }

@@ -1,7 +1,13 @@
 @CHARSET "UTF-8";
-.header-margin-left{
-	margin-left: 20px;
-}
-#f_room{
+
+#f_room {
 	background-color: white;
+}
+
+#s_room {
+	border: 1px solid rgb(149, 184, 231);
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	display: inline-block;
 }

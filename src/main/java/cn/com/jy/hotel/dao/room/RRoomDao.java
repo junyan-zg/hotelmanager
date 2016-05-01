@@ -8,6 +8,8 @@
 */ 
 package cn.com.jy.hotel.dao.room;
 
+import java.util.List;
+
 import cn.com.jy.hotel.dao.BaseDao;
 import cn.com.jy.hotel.domain.room.RRoom;
 
@@ -20,4 +22,10 @@ import cn.com.jy.hotel.domain.room.RRoom;
  */
 public interface RRoomDao extends BaseDao<RRoom>{
 	public Long getCountByGroupId(Short group_id,boolean useCache) throws Exception;
+	/**
+	 * service收到父groupid参数，根据父groupid参数拿到子groupid传到dao
+	 * service判断参数，如果查询全部则将参数置为空
+	 */
+	public List<RRoom> getRoomsByConditions(Short[] groupIds, Short typeId,
+			Byte statusId, String roomNumber,boolean useCache) throws Exception;
 }

@@ -8,7 +8,12 @@
  */
 package cn.com.jy.hotel.dao.impl.room;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Query;
+import org.hibernate.proxy.pojo.javassist.SerializableProxy;
 import org.springframework.stereotype.Repository;
 
 import cn.com.jy.hotel.dao.impl.BaseDaoImpl;
@@ -31,5 +36,60 @@ public class RRoomDaoImpl extends BaseDaoImpl<RRoom> implements RRoomDao {
 		Query query = this.getSession().createQuery(hql);
 		query.setParameter(0, group_id);
 		return (long) query.setCacheable(useCache).uniqueResult();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RRoom> getRoomsByConditions(Short[] groupIds, Short typeId,
+			Byte statusId, String roomNumber,boolean useCache) throws Exception {
+		List<Serializable> args = new ArrayList<>();
+		StringBuffer sb = new StringBuffer();
+		sb.append("from RRoom ");
+		int flag = 0;
+		if(groupIds!=null&&groupIds.length>0){
+			sb.append("where RRoomGroup.id in (");
+			flag = 1;
+			for (int i = 0; i < groupIds.length; i++) {
+				if (i == groupIds.length - 1) {
+					sb.append("?");
+				} else {
+					sb.append("?,");
+				}
+				args.add(groupIds[i]);
+			}
+			sb.append(")");
+		}
+		if(typeId != null){
+			if (flag==0) {
+				sb.append("where RRoomType.id = ?");
+				flag = 1;
+			}else {
+				sb.append(" and RRoomType.id = ?");
+			}
+			args.add(typeId);
+		}
+		if(statusId != null){
+			if (flag==0) {
+				sb.append("where roomStatus = ?");
+				flag = 1;
+			}else {
+				sb.append(" and roomStatus = ?");
+			}
+			args.add(statusId);
+		}
+		if(roomNumber != null){
+			if (flag==0) {
+				sb.append("where roomNumber = ?");
+				//flag = 1;没意义了
+			}else {
+				sb.append(" and roomNumber = ?");
+			}
+			args.add(roomNumber);
+		}
+		Query query = this.getSession().createQuery(sb.toString());
+		for (int i = 0; i < args.size(); i++) {
+			query.setParameter(i, args.get(i));
+		}
+		return query.setCacheable(useCache).list();
 	}
 }
