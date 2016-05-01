@@ -24,14 +24,22 @@ import java.util.Map;
 public class RoomStatusMap {
 	private static Map<Byte, String> map = null;
 	private static List<Helper> list = null;
+	private static List<Helper2> list2 = null;
 	static {
 		map = new HashMap<>();
-		map.put((byte) 0, "正常");
-		map.put((byte) 1, "停用");
-
+		map.put((byte) 1, "空房");
+		map.put((byte) 2, "占用");
+		map.put((byte) 3, "脏房");
+		map.put((byte) 4, "维修");
+		map.put((byte) 5, "停用");
+	
 		list = new ArrayList<>();
+		list2 = new ArrayList<>();
+		list2.add(new Helper2((byte)0,"显示全部"));
+		
 		for (Map.Entry<Byte, String> entry : map.entrySet()) {
 			list.add(new Helper(entry.getValue()));
+			list2.add(new Helper2(entry.getKey(),entry.getValue()));
 		}
 	}
 
@@ -48,6 +56,10 @@ public class RoomStatusMap {
 
 	public static List<Helper> getHelperList() {
 		return list;
+	}
+	
+	public static List<Helper2> getHelper2List() {
+		return list2;
 	}
 
 }

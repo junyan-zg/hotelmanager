@@ -78,5 +78,7 @@ public class Tree implements Serializable {
 		this.id = id;
 		this.text = text;
 	}
-
+	public Tree(Short id) {
+		this.id = id;
+	}
 }

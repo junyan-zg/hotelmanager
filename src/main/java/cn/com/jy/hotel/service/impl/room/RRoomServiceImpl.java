@@ -11,6 +11,7 @@ package cn.com.jy.hotel.service.impl.room;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -18,13 +19,15 @@ import org.springframework.stereotype.Service;
 
 import cn.com.jy.hotel.dao.BaseDao;
 import cn.com.jy.hotel.dao.room.RRoomDao;
+import cn.com.jy.hotel.dao.room.RRoomGroupDao;
+import cn.com.jy.hotel.data.RoomStatusMap;
 import cn.com.jy.hotel.domain.PageResult;
 import cn.com.jy.hotel.domain.room.RRoom;
+import cn.com.jy.hotel.domain.room.RRoomGroup;
 import cn.com.jy.hotel.domain.room.sub.RRoomSub;
 import cn.com.jy.hotel.domain.room.sub.RRoomSub2;
 import cn.com.jy.hotel.service.guest.GGuestRoomDetailService;
 import cn.com.jy.hotel.service.impl.BaseServiceImpl;
-import cn.com.jy.hotel.service.room.RRoomGroupService;
 import cn.com.jy.hotel.service.room.RRoomService;
 import cn.com.jy.hotel.service.room.RRoomTypeService;
 
@@ -44,10 +47,7 @@ public class RRoomServiceImpl extends BaseServiceImpl<RRoom> implements
 	@Resource
 	private GGuestRoomDetailService gGuestRoomDetailService;
 	@Resource
-	private RRoomTypeService rRoomTypeService;
-	@Resource
-	private RRoomGroupService rRoomGroupService;
-	
+	private RRoomGroupDao rRoomGroupDao;
 
 	@Override
 	protected BaseDao<RRoom> getBaseDao() {
@@ -64,22 +64,67 @@ public class RRoomServiceImpl extends BaseServiceImpl<RRoom> implements
 	@Override
 	public List<RRoomSub> getRoomAllByPages(Short group_id, Integer pageNumber,
 			Integer pageSize) throws Exception {
-		PageResult pageResult = new PageResult(pageNumber,
-				pageSize, rRoomDao.getCountByGroupId(group_id, true));
-		List<RRoom> list = getBaseDao().queryByConditions("RRoomGroup.id", new Serializable[]{ group_id}, null, null,
+		PageResult pageResult = new PageResult(pageNumber, pageSize,
+				rRoomDao.getCountByGroupId(group_id, true));
+		List<RRoom> list = getBaseDao().queryByConditions("RRoomGroup.id",
+				new Serializable[] { group_id }, null, null,
 				(int) pageResult.getLimitOffset(),
 				(int) pageResult.getPageSize(), true);
 		List<RRoomSub> rRoomSubs = new ArrayList<>();
 		for (RRoom rRoom : list) {
-			rRoomSubs.add(new RRoomSub(rRoom,group_id));
+			rRoomSubs.add(new RRoomSub(rRoom, group_id));
 		}
 		return rRoomSubs;
 	}
 
 	@Override
-	public List<RRoomSub2> getRoomsByConditions(Short groupId, Short typeId,
+	public List<RRoomSub2> getRoomsByConditions(Set<Short> groupIds, Short typeId,
 			Byte statusId, String roomNumber) throws Exception {
-		return null;
+		//第一个参数由controller处理
+		if (typeId != null && typeId == 0) {
+			typeId = null;
+		}
+		if (roomNumber != null && "".equals(roomNumber.trim())) {
+			roomNumber = null;
+		}
+		List<RRoom> rRooms = rRoomDao.getRoomsByConditions(groupIds, typeId, statusId, roomNumber, true);
+		List<RRoomSub2> rRoomSub2s = new ArrayList<RRoomSub2>();
+		for (RRoom rRoom : rRooms) {
+			RRoomSub2 sub2 = new RRoomSub2();
+			sub2.setId(rRoom.getId());
+			sub2.setRoomNumber(rRoom.getRoomNumber());
+			
+			String status = RoomStatusMap.getString(rRoom.getRoomStatus());
+			char[] charArray = status.toCharArray();
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < charArray.length; i++) {
+				if(i==charArray.length-1){
+					sb.append(charArray[i]);
+				}else{
+					sb.append(charArray[i]);
+					sb.append("<br/>");
+				}
+			}
+			sub2.setRoomStatusName(sb.toString());
+			
+			sub2.setRoomTypeName(rRoom.getRRoomType().getRoomTypeName());
+			sub2.setMaxPeople(rRoom.getRRoomType().getMaxPeople());
+			
+			String groupName = "";
+			RRoomGroup rRoomGroup = rRoom.getRRoomGroup();
+			groupName = rRoomGroup.getGroupName()+groupName;
+			while(rRoomGroup.getParentId()!=0){
+				rRoomGroup = rRoomGroupDao.getById(rRoomGroup.getParentId());
+				groupName = rRoomGroup.getGroupName()+"-"+groupName;
+			}
+			sub2.setGroupName(groupName);
+			
+			
+			
+			
+			rRoomSub2s.add(sub2);
+		}
+		return rRoomSub2s;
 	}
 
 }

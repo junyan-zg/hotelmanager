@@ -128,9 +128,9 @@
 				<div onclick="addGroup()" data-options="iconCls:'icon-house'">
 					<span style="padding-left: 5px;">添加分组</span>
 				</div>
-				<div onclick="addRoom()" data-options="iconCls:'icon-add'">
+				<!-- <div onclick="addRoom()" data-options="iconCls:'icon-add'">
 					<span style="padding-left: 5px;">添加房间</span>
-				</div>
+				</div> -->
 			</div>
 		</div>
 

@@ -9,7 +9,9 @@
 package cn.com.jy.hotel.controller.room;
 
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.com.jy.hotel.domain.room.RRoom;
 import cn.com.jy.hotel.domain.room.sub.RRoomSub2;
 import cn.com.jy.hotel.service.room.RRoomGroupService;
+import cn.com.jy.hotel.service.room.RRoomService;
 
 /** 
  * @ClassName: RoomMsgController 
@@ -34,6 +37,8 @@ import cn.com.jy.hotel.service.room.RRoomGroupService;
 public class RoomMsgController {
 	@Resource
 	private RRoomGroupService rRoomGroupService;
+	@Resource
+	private RRoomService rRoomService;
 	@RequestMapping("/getShowRooms")
 	public String getShowRooms(HttpServletRequest request) throws Exception{
 		request.setAttribute("rooms",rRoomGroupService.getAllRoomGroupHtml());
@@ -43,7 +48,10 @@ public class RoomMsgController {
 	@ResponseBody
 	@RequestMapping("/getRoomsByConditions")
 	public List<RRoomSub2> getRoomsByConditions(Short groupId,Short typeId,Byte statusId,String roomNumber) throws Exception{
-	//	RRoom
-		return /*"/su/room/getShowRooms"*/null;
+		Set<Short> groupIds = null;
+		if (groupId != null && groupId != 0) {
+			groupIds = rRoomGroupService.getAllChild(groupId, true);
+		}
+		return rRoomService.getRoomsByConditions(groupIds, null, null, null);
 	}
 }

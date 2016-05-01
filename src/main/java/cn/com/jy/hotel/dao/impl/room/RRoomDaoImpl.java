@@ -10,7 +10,9 @@ package cn.com.jy.hotel.dao.impl.room;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.proxy.pojo.javassist.SerializableProxy;
@@ -40,22 +42,23 @@ public class RRoomDaoImpl extends BaseDaoImpl<RRoom> implements RRoomDao {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<RRoom> getRoomsByConditions(Short[] groupIds, Short typeId,
+	public List<RRoom> getRoomsByConditions(Set<Short> groupIds, Short typeId,
 			Byte statusId, String roomNumber,boolean useCache) throws Exception {
 		List<Serializable> args = new ArrayList<>();
 		StringBuffer sb = new StringBuffer();
 		sb.append("from RRoom ");
 		int flag = 0;
-		if(groupIds!=null&&groupIds.length>0){
+		if(groupIds!=null&&groupIds.size()>0){
 			sb.append("where RRoomGroup.id in (");
 			flag = 1;
-			for (int i = 0; i < groupIds.length; i++) {
-				if (i == groupIds.length - 1) {
+			Iterator<Short> iterator = groupIds.iterator();
+			for (int i = 0; i < groupIds.size(); i++) {
+				if (i == groupIds.size() - 1) {
 					sb.append("?");
 				} else {
 					sb.append("?,");
 				}
-				args.add(groupIds[i]);
+				args.add(iterator.next());
 			}
 			sb.append(")");
 		}

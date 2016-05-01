@@ -37,7 +37,7 @@ public class RRoom implements java.io.Serializable {
 	private RRoomGroup RRoomGroup;
 	private RRoomType RRoomType;
 	private String roomNumber;
-	private byte roomStatus;
+	private byte roomStatus;//1空房2占用3脏房4维修5停用
 	private Long guestRoomDetailId;
 	private Set<GGuestRoomDetail> GGuestRoomDetails = new HashSet<GGuestRoomDetail>(
 			0);

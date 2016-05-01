@@ -173,5 +173,41 @@ public class RRoomGroupServiceImpl extends BaseServiceImpl<RRoomGroup>
 		}
 		return stringBuffer.toString();
 	}
+	
+	@Override
+	public Set<Short> getAllChild(Short parentId,boolean useCache) throws Exception {
+		List<RRoomGroup> list = getBaseDao().getAll(useCache);
+		Map<Short, List<Tree>> mapParentIDAsKey = new HashMap<>();
+		Map<Short, Tree> mapIDAsKey = new HashMap<>();
+		for (RRoomGroup roomGroup : list) {
+			Tree tree = new Tree(roomGroup.getId());
+			if (!mapParentIDAsKey.containsKey(roomGroup.getParentId())) {
+				List<Tree> treeList = new ArrayList<Tree>();
+				treeList.add(tree);
+				mapParentIDAsKey.put(roomGroup.getParentId(), treeList);
+			} else {
+				List<Tree> treeList = mapParentIDAsKey.get(roomGroup.getParentId());
+				treeList.add(tree);
+			}
+			mapIDAsKey.put(tree.getId(), tree);
+		}
+		Tree tree = new Tree((short) 0);
+		Set<Short> keySet = mapParentIDAsKey.keySet();
+		for (Short pid : keySet) {
+			if (pid == 0) {
+				tree.setChildren(mapParentIDAsKey.get(pid));
+			} else {
+				mapIDAsKey.get(pid).setChildren(mapParentIDAsKey.get(pid));
+			}
+		}
+		if (parentId==null) {
+			return null;
+		}
+		Set<Short> ids = new HashSet<>();
+		ids.add(parentId);
+		List<Tree> targetChilds = mapIDAsKey.get(parentId).getChildren();
+		recurseChild(targetChilds, ids);
+		return ids;
+	}
 
 }

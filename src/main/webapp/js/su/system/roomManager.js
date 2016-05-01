@@ -49,6 +49,20 @@ $(function() {
 });
 var title;
 function addRoom() {
+	curr_groupId = currNode.id;
+	table2_reload();
+	var str = currNode.text;
+	var parent = currNode;
+	var pNode = currNode;
+	while (1) {
+		parent = $("#t1").tree("getParent", parent.target);
+		if (parent == null) {
+			break;
+		}
+		str = parent.text + " - " + str;
+	}
+	title = str;
+	changeTitle(str);
 	$('#t2').edatagrid('addRow');
 }
 function delAll() {

@@ -9,6 +9,7 @@
 package cn.com.jy.hotel.service.room;
 
 import java.util.List;
+import java.util.Set;
 
 import cn.com.jy.hotel.domain.room.RRoom;
 import cn.com.jy.hotel.domain.room.sub.RRoomSub;
@@ -26,5 +27,5 @@ public interface RRoomService extends BaseService<RRoom>{
 	public Long getCountByGroupId(Short group_id ,boolean useCache) throws Exception;
 	public List<RRoomSub> getRoomAllByPages(Short group_id, Integer pageNumber,
 			 Integer pageSize) throws Exception;
-	public List<RRoomSub2> getRoomsByConditions(Short groupId,Short typeId,Byte statusId,String roomNumber) throws Exception;
+	public List<RRoomSub2> getRoomsByConditions(Set<Short> groupIds,Short typeId,Byte statusId,String roomNumber) throws Exception;
 }

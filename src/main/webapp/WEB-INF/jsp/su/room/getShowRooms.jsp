@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,7 +99,7 @@
 			data-options="editable:false,panelHeight:'120',width:'100',valueField:'id',textField:'roomTypeName',value:'显示全部',url:'${pageContext.request.contextPath}/su/system/getRoomTypeAll2'" />
 	</div>
 	<div style="margin-top: 4px;">
-		<div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="trackMouse:true">
+		<%-- <div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="trackMouse:true">
 			<div class="dd" >
 				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
 				<div class="t" style="margin-top:2px;font-size: 12px;">
@@ -113,218 +114,25 @@
 				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
 					有<br>人</div>
 			</div>
-		</div>
-		<div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="deltaY:-77">
+		</div> --%>
+		<c:forEach var="r" items="${roomDetails }">
+		<div title="${r.tips}" class="easyui-tooltip rrr" data-options="trackMouse:true" ids="${r.id}">
 			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
+				<span class="a">${r.roomNumber}</span><span class="t" style="float: right;">${r.roomTypeName}</span>
 				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
+					可住：${r.maxPeople} 人
 				</div>
 				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
+					位于：${r.groupName}
 				</div>
 				<div class="t" style="margin-top:2px;font-size: 12px;">
-					住客：小明
+					&nbsp;<!-- <span>住客：小明</span> -->
 				</div>
 				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
-			</div>
-		</div><div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="deltaY:-77">
-			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					住客：小明
-				</div>
-				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
-			</div>
-		</div><div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="deltaY:-77">
-			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					住客：小明
-				</div>
-				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
-			</div>
-		</div><div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="deltaY:-77">
-			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					住客：小明
-				</div>
-				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
-			</div>
-		</div><div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="deltaY:-77">
-			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					住客：小明
-				</div>
-				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
-			</div>
-		</div><div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="deltaY:-77">
-			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					住客：小明
-				</div>
-				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
-			</div>
-		</div><div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="deltaY:-77">
-			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					住客：小明
-				</div>
-				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
-			</div>
-		</div><div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="deltaY:-77">
-			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					住客：小明
-				</div>
-				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
-			</div>
-		</div><div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="deltaY:-77">
-			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					住客：小明
-				</div>
-				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
-			</div>
-		</div><div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="deltaY:-77">
-			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					住客：小明
-				</div>
-				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
-			</div>
-		</div><div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="deltaY:-77">
-			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					住客：小明
-				</div>
-				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
-			</div>
-		</div><div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="deltaY:-77">
-			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					住客：小明
-				</div>
-				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
-			</div>
-		</div><div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="deltaY:-77">
-			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					住客：小明
-				</div>
-				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
-			</div>
-		</div><div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="deltaY:-77">
-			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					住客：小明
-				</div>
-				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
+					${r.roomStatusName}</div>
 			</div>
 		</div>
+		</c:forEach>
 	</div>
 	<!-- <div style="border: 1px solid rgb(149, 184, 231);clear: both;width: 100px;height: 100px;"></div> -->
 </body>

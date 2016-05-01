@@ -9,6 +9,7 @@
 package cn.com.jy.hotel.service.room;
 
 import java.util.List;
+import java.util.Set;
 
 import cn.com.jy.hotel.domain.Tree;
 import cn.com.jy.hotel.domain.room.RRoomGroup;
@@ -24,6 +25,7 @@ import cn.com.jy.hotel.service.BaseService;
  */
 public interface RRoomGroupService extends BaseService<RRoomGroup>{
 	public List<Tree> getAllRoomGroup() throws Exception;
+	public Set<Short> getAllChild(Short parentId,boolean useCache) throws Exception;
 	public String getAllRoomGroupHtml() throws Exception;
 	public void updateRoomGroup(Short id,String newName)throws Exception;
 	public void addRoomGroup(Short pid,String name)throws Exception;
