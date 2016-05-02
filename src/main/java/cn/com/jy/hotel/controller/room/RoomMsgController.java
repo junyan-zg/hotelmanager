@@ -42,6 +42,8 @@ public class RoomMsgController {
 	@RequestMapping("/getShowRooms")
 	public String getShowRooms(HttpServletRequest request) throws Exception{
 		request.setAttribute("rooms",rRoomGroupService.getAllRoomGroupHtml());
+		List<RRoomSub2> list = rRoomService.getRoomsByConditions(rRoomGroupService.getAllChild((short)4, true), null, null, null);
+		request.setAttribute("roomDetails",list);
 		return "/su/room/getShowRooms";
 	}
 	

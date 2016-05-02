@@ -12,7 +12,7 @@
 	$(function() {
 		var body = document.getElementsByTagName("body")[0];
 			body.oncontextmenu = function() {
-				return false;
+				return true;
 			}
 	})
 </script>

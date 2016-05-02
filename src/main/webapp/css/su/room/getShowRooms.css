@@ -11,3 +11,73 @@
 	border-radius: 5px;
 	display: inline-block;
 }
+
+#page {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #efefef;
+	border: 1px solid #ccc;
+	z-index: 999;
+}
+/**/
+.r_empty {
+	border: 1px solid rgb(149, 184, 231);
+	width: 120px;
+	min-height: 87px;
+	margin: 6px;
+	float: left;
+	background-color: #8ec6fe;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.r_empty:HOVER {
+	border-color: #0E2D6F;
+}
+
+.r_empty_in {
+	width: 119px;
+	min-height: 86px;
+	position: relative;
+	overflow: hidden;
+}
+
+.r_empty_number {
+	color: white;
+	font-weight: bolder;
+	font-size: 20px;
+	margin: 1px;
+}
+
+.r_empty_info {
+	color: #0E2D6F;
+	padding: 2px;
+	font-weight: 600;
+	margin-top: 2px;
+	font-size: 12px;
+}
+
+.r_empty_status {
+	color: #0E2D6F;
+	padding: 2px;
+	font-weight: 600;
+	margin-top: 2px;
+	font-size: 12px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+.r_empty_type {
+	color: #0E2D6F;
+	font-size: 14px;
+	padding: 2px;
+	font-weight: 600;
+	float: right;
+	position: absolute;
+	white-space: nowrap;
+	margin-left: 70px;
+}
+/**/

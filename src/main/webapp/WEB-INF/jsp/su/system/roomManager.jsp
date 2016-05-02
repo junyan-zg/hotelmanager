@@ -97,7 +97,7 @@
 										<th field="roomTypeName" width="33%" align="center"
 											editor="{type:'combobox',options:{required:true,valueField:'roomTypeName',textField:'roomTypeName',url:'${pageContext.request.contextPath}/su/system/getRoomTypeAll',editable:false,panelHeight:65}}">房间类型</th>
 										<th field="roomStatusName" width="33%" align="center"
-											editor="{type:'combobox',options:{required:true,valueField:'value',textField:'value',url:'${pageContext.request.contextPath}/su/system/getRoomStatusAll',editable:false,panelHeight:45}}">房间状态</th>
+											editor="{type:'combobox',options:{required:true,valueField:'value',textField:'value',url:'${pageContext.request.contextPath}/su/system/getRoomStatusAll',editable:false,panelHeight:65}}">房间状态</th>
 
 									</tr>
 								</thead>

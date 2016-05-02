@@ -65,6 +65,9 @@ public class RoomController {
 	@ResponseBody
 	@RequestMapping("/addRoom")
 	public void addRoom(RRoomSub rRoomSub) throws Exception {
+		if(rRoomSub.getGroup_id()==null||rRoomSub.getGroup_id()==0){
+			throw new MyException("添加失败，根节点不能添加房间", (short) 0);
+		}
 		RRoom rRoom = new RRoom();
 		rRoom.setRRoomGroup(rRoomGroupService.getById(rRoomSub.getGroup_id()));
 		rRoom.setRoomNumber(rRoomSub.getRoomNumber());
