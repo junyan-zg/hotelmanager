@@ -113,7 +113,7 @@ public class RRoomServiceImpl extends BaseServiceImpl<RRoom> implements
 					sb.append(charArray[i]);
 				} else {
 					sb.append(charArray[i]);
-					sb.append("<br/>");
+					sb.append("<br>");
 				}
 			}
 			sub2.setRoomStatusName(sb.toString());

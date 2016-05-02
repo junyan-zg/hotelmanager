@@ -10,18 +10,29 @@
 	href="${pageContext.request.contextPath}/css/su/system/basic.css">
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/su/room/getShowRooms.css">
-<script type="text/javascript" src=""></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/avalon.js"></script>
 <script type="text/javascript">
 	var currGroupId = 0;
 	var currTypeId = 0;
 	var currStatusId = 0;
 	var currNumber = "";
-	var roomCount = ${roomCount};
+	var roomCount = $
+	{
+		roomCount
+	};
 	var m_pageNumber = 1;
 	var m_pageSize = 50;
-	
+
 	var url_getCount = "${pageContext.request.contextPath}/su/room/getRoomsCountByConditions"
 	var url_getRooms = "${pageContext.request.contextPath}/su/room/getRoomsByConditions"
+</script>
+
+<script type="text/javascript">
+	var model = avalon.define({
+		$id : "roomController",
+		array : []
+	})
 </script>
 <script type="text/javascript">
 	$(function() {
@@ -33,19 +44,18 @@
 		});
 		$('#f_rtype').combobox({
 			onSelect : function(record) {
-				currStatusId = record.id;
+				currTypeId = record.id;
 				loadData();
 			}
 		});
 		$('#f_rstatus').combobox({
 			onSelect : function(record) {
-				currTypeId = record.id;
+				currStatusId = record.id;
 				loadData();
 			}
 		});
 		$('#s_rnumber').searchbox({
 			searcher : function(value, name) {
-				if(value==null || value.trim()==''){return;}
 				currNumber = value;
 				loadData();
 			},
@@ -54,8 +64,8 @@
 		});
 		$('#page').pagination({
 			total : roomCount,
-			pageSize:m_pageSize,
-			pageList:[50,80,100],
+			pageSize : m_pageSize,
+			pageList : [ 50, 80, 100 ],
 			onBeforeRefresh : function(pageNumber, pageSize) {
 				m_pageNumber = pageNumber;
 				m_pageSize = pageSize;
@@ -73,46 +83,50 @@
 		});
 		loadData();
 	});
-	
-	function loadData(){
+
+	function loadData() {
 		$.ajax({
 			type : "POST",
 			url : url_getCount,
 			data : {
-				groupId:currGroupId,
-				typeId:currTypeId,
-				statusId:currStatusId,
-				roomNumber:currNumber
+				groupId : currGroupId,
+				typeId : currTypeId,
+				statusId : currStatusId,
+				roomNumber : currNumber
 			},
 			cache : false,
 			dataType : "text",
 			success : function(data) {
-				$('#page').pagination({total:data});
+				$('#page').pagination({
+					total : data
+				});
 			}
 		})
 		$.ajax({
 			type : "POST",
 			url : url_getRooms,
-			data :  {
-				groupId:currGroupId,
-				typeId:currTypeId,
-				statusId:currStatusId,
-				roomNumber:currNumber,
-				pageNumber:m_pageNumber,
-				pageSize:m_pageSize
+			data : {
+				groupId : currGroupId,
+				typeId : currTypeId,
+				statusId : currStatusId,
+				roomNumber : currNumber,
+				pageNumber : m_pageNumber,
+				pageSize : m_pageSize
 			},
 			cache : false,
 			dataType : "json",
 			success : function(data) {
-				console.log(data)
+				model.array = new Array();
+				for ( var i in data) {
+					model.array.push(data[i])
+				}
 			},
 			error : function(e) {
-				$.messager.alert('警告','获取房间失败');
+				$.messager.alert('警告', '获取房间失败');
 			}
 		})
 	}
 </script>
-
 </head>
 <body style="padding: 0;">
 	<div id="mm" class="easyui-menu" style="width: 100px">
@@ -138,40 +152,24 @@
 	</div>
 	<div id="page"></div>
 
-	<div style="padding: 0 0 0 15px; margin-top: 50px;">
-		<%-- <div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="trackMouse:true">
-			<div class="dd" >
-				<span class="a">3305</span><span class="t" style="float: right;">单人房</span>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					可住：2 人
+	<div style="padding: 0 0 0 15px; margin-top: 50px;"
+		ms-controller="roomController" ms-each-el="array">						<!-- {{el.tips}} -->
+		<div titlee="{{el.tips}}" class="easyui-tooltip r_empty"
+			data-options="trackMouse:true" ids="el.id">
+			<div class="r_empty_in">
+				<span class="r_empty_type">{{el.roomTypeName}}</span>
+				<div class="r_empty_number">{{el.roomNumber}}</div>
+				<div class="r_empty_info">可住：{{el.maxPeople}}人</div>
+				<div class="r_empty_info">位于：{{el.groupName}}</div>
+				<div class="r_empty_info">
+					&nbsp;
+					<!-- <span>住客：小明</span> -->
 				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					位于：A-5-6
-				</div>
-				<div class="t" style="margin-top:2px;font-size: 12px;">
-					&nbsp;<!-- <span>住客：小明</span> -->
-				</div>
-				<div class="t" style="position: absolute; right: 0; bottom: 0;font-size: 12px;">
-					有<br>人</div>
+				<div class="r_empty_status">{{el.roomStatusName|html}}</div>
 			</div>
-		</div> --%>
-		<c:forEach var="r" items="${roomDetails }">
-			<div title="${r.tips}" class="easyui-tooltip r_empty"
-				data-options="trackMouse:true" ids="${r.id}">
-				<div class="r_empty_in">
-					<span class="r_empty_type">${r.roomTypeName}</span>
-					<div class="r_empty_number">${r.roomNumber}</div>
-					<div class="r_empty_info">可住：${r.maxPeople}人</div>
-					<div class="r_empty_info">位于：${r.groupName}</div>
-					<div class="r_empty_info">
-						&nbsp;
-						<!-- <span>住客：小明</span> -->
-					</div>
-					<div class="r_empty_status">${r.roomStatusName}</div>
-				</div>
-			</div>
-		</c:forEach>
+		</div>
 	</div>
 	<div style="height: 40px; clear: both;"></div>
+
 </body>
 </html>
