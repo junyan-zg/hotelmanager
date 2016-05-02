@@ -154,8 +154,8 @@
 
 	<div style="padding: 0 0 0 15px; margin-top: 50px;"
 		ms-controller="roomController" ms-each-el="array">						<!-- {{el.tips}} -->
-		<div titlee="{{el.tips}}" class="easyui-tooltip r_empty"
-			data-options="trackMouse:true" ids="el.id">
+		<div ms-attr-title="{{el.groupName}}" class="r_empty" ms-class="easyui-tooltip"
+			data-options="trackMouse:true" ms-attr-ids="{{el.id}}">
 			<div class="r_empty_in">
 				<span class="r_empty_type">{{el.roomTypeName}}</span>
 				<div class="r_empty_number">{{el.roomNumber}}</div>
