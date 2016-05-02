@@ -39,6 +39,7 @@ public class RoomMsgController {
 	@RequestMapping("/getShowRooms")
 	public String getShowRooms(HttpServletRequest request) throws Exception{
 		request.setAttribute("rooms",rRoomGroupService.getAllRoomGroupHtml());
+		request.setAttribute("roomCount", rRoomService.getRoomsCountByConditions(null, null, null, null, true));
 		return "/su/room/getShowRooms";
 	}
 	@ResponseBody
@@ -59,6 +60,7 @@ public class RoomMsgController {
 		if (groupId != null && groupId != 0) {
 			groupIds = rRoomGroupService.getAllChild(groupId, true);
 		}
-		return rRoomService.getRoomsByConditions(groupIds, typeId, statusId, roomNumber, pageNumber, pageSize);
+		List<RRoomSub2> results = rRoomService.getRoomsByConditions(groupIds, typeId, statusId, roomNumber, pageNumber, pageSize);
+		return results;
 	}
 }

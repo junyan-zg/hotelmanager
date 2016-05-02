@@ -84,6 +84,9 @@ public class RRoomServiceImpl extends BaseServiceImpl<RRoom> implements
 		if (typeId != null && typeId == 0) {
 			typeId = null;
 		}
+		if (statusId != null && statusId == 0) {
+			statusId = null;
+		}
 		if (roomNumber != null && "".equals(roomNumber.trim())) {
 			roomNumber = null;
 		}
@@ -139,6 +142,9 @@ public class RRoomServiceImpl extends BaseServiceImpl<RRoom> implements
 		// 第一个参数由controller处理
 		if (typeId != null && typeId == 0) {
 			typeId = null;
+		}
+		if (statusId != null && statusId == 0) {
+			statusId = null;
 		}
 		if (roomNumber != null && "".equals(roomNumber.trim())) {
 			roomNumber = null;

@@ -13,51 +13,104 @@
 <script type="text/javascript" src=""></script>
 <script type="text/javascript">
 	var currGroupId = 0;
+	var currTypeId = 0;
 	var currStatusId = 0;
 	var currNumber = "";
-	var roomCount = ${};
+	var roomCount = ${roomCount};
 	var m_pageNumber = 1;
-	var m_pageSize = 10;
+	var m_pageSize = 50;
+	
+	var url_getCount = "${pageContext.request.contextPath}/su/room/getRoomsCountByConditions"
+	var url_getRooms = "${pageContext.request.contextPath}/su/room/getRoomsByConditions"
 </script>
 <script type="text/javascript">
 	$(function() {
 		$('#mm').menu({
 			onClick : function(item) {
-				console.log(item.id)
+				currGroupId = item.id;
+				loadData();
 			}
 		});
 		$('#f_rtype').combobox({
 			onSelect : function(record) {
-				console.log(record.id)
+				currStatusId = record.id;
+				loadData();
+			}
+		});
+		$('#f_rstatus').combobox({
+			onSelect : function(record) {
+				currTypeId = record.id;
+				loadData();
 			}
 		});
 		$('#s_rnumber').searchbox({
 			searcher : function(value, name) {
-				alert(value + "," + name)
+				if(value==null || value.trim()==''){return;}
+				currNumber = value;
+				loadData();
 			},
 			prompt : '  按房间号搜索',
 			height : 24
 		});
 		$('#page').pagination({
 			total : roomCount,
-			pageSize:48,
+			pageSize:m_pageSize,
 			pageList:[50,80,100],
 			onBeforeRefresh : function(pageNumber, pageSize) {
 				m_pageNumber = pageNumber;
 				m_pageSize = pageSize;
-				//table1_reload();
+				loadData();
 			},
 			onSelectPage : function(pageNumber, pageSize) {
 				m_pageNumber = pageNumber;
 				m_pageSize = pageSize;
-				//table1_reload();
+				loadData();
 			},
 			onChangePageSize : function(pageSize) {
 				m_pageSize = pageSize;
-				//table1_reload();
+				loadData();
 			}
 		});
+		loadData();
 	});
+	
+	function loadData(){
+		$.ajax({
+			type : "POST",
+			url : url_getCount,
+			data : {
+				groupId:currGroupId,
+				typeId:currTypeId,
+				statusId:currStatusId,
+				roomNumber:currNumber
+			},
+			cache : false,
+			dataType : "text",
+			success : function(data) {
+				$('#page').pagination({total:data});
+			}
+		})
+		$.ajax({
+			type : "POST",
+			url : url_getRooms,
+			data :  {
+				groupId:currGroupId,
+				typeId:currTypeId,
+				statusId:currStatusId,
+				roomNumber:currNumber,
+				pageNumber:m_pageNumber,
+				pageSize:m_pageSize
+			},
+			cache : false,
+			dataType : "json",
+			success : function(data) {
+				console.log(data)
+			},
+			error : function(e) {
+				$.messager.alert('警告','获取房间失败');
+			}
+		})
+	}
 </script>
 
 </head>
@@ -78,7 +131,7 @@
 			data-options="editable:false,panelHeight:'120',width:'100',valueField:'id',textField:'roomTypeName',value:'显示全部',url:'${pageContext.request.contextPath}/su/system/getRoomTypeAll2'" />
 		<span style="margin-left: 180px; margin-top: 2px; position: absolute;"><input
 			id="s_rnumber"></input></span> <a class="panel-title"
-			style="margin-right: -5px;">房态选择：</a> <input id="f_rtype"
+			style="margin-right: -5px;">房态选择：</a> <input id="f_rstatus"
 			class="easyui-combobox"
 			data-options="editable:false,panelHeight:'120',width:'100',valueField:'id',textField:'text',value:'显示全部',url:'${pageContext.request.contextPath}/su/system/getRoomStatusAll2'" />
 
