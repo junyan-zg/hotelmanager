@@ -8,8 +8,6 @@
 */ 
 package cn.com.jy.hotel.controller.room;
 
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.com.jy.hotel.domain.room.RRoom;
 import cn.com.jy.hotel.domain.room.sub.RRoomSub2;
 import cn.com.jy.hotel.service.room.RRoomGroupService;
 import cn.com.jy.hotel.service.room.RRoomService;
@@ -42,18 +39,26 @@ public class RoomMsgController {
 	@RequestMapping("/getShowRooms")
 	public String getShowRooms(HttpServletRequest request) throws Exception{
 		request.setAttribute("rooms",rRoomGroupService.getAllRoomGroupHtml());
-		List<RRoomSub2> list = rRoomService.getRoomsByConditions(rRoomGroupService.getAllChild((short)4, true), null, null, null);
-		request.setAttribute("roomDetails",list);
 		return "/su/room/getShowRooms";
 	}
-	
 	@ResponseBody
-	@RequestMapping("/getRoomsByConditions")
-	public List<RRoomSub2> getRoomsByConditions(Short groupId,Short typeId,Byte statusId,String roomNumber) throws Exception{
+	@RequestMapping("/getRoomsCountByConditions")
+	public Long getRoomsCountByConditions(Short groupId,Short typeId,Byte statusId,String roomNumber) throws Exception{
 		Set<Short> groupIds = null;
 		if (groupId != null && groupId != 0) {
 			groupIds = rRoomGroupService.getAllChild(groupId, true);
 		}
-		return rRoomService.getRoomsByConditions(groupIds, null, null, null);
+		return rRoomService.getRoomsCountByConditions(groupIds, typeId, statusId, roomNumber, true);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getRoomsByConditions")
+	public List<RRoomSub2> getRoomsByConditions(Short groupId,Short typeId,Byte statusId,String roomNumber,Integer pageNumber,
+			Integer pageSize) throws Exception{
+		Set<Short> groupIds = null;
+		if (groupId != null && groupId != 0) {
+			groupIds = rRoomGroupService.getAllChild(groupId, true);
+		}
+		return rRoomService.getRoomsByConditions(groupIds, typeId, statusId, roomNumber, pageNumber, pageSize);
 	}
 }

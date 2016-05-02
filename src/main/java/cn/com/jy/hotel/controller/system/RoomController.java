@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.com.jy.hotel.data.Helper;
+import cn.com.jy.hotel.data.Helper2;
 import cn.com.jy.hotel.data.RoomStatusMap;
 import cn.com.jy.hotel.domain.room.RRoom;
 import cn.com.jy.hotel.domain.room.sub.RRoomSub;
@@ -61,6 +62,11 @@ public class RoomController {
 	@RequestMapping("/getRoomStatusAll")
 	public List<Helper> getRoomStatusAll() throws Exception {
 		return RoomStatusMap.getHelperList();
+	}
+	@ResponseBody
+	@RequestMapping("/getRoomStatusAll2")
+	public List<Helper2> getRoomStatusAll2() throws Exception {
+		return RoomStatusMap.getHelper2List();
 	}
 	@ResponseBody
 	@RequestMapping("/addRoom")

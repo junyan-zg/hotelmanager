@@ -10,6 +10,15 @@
 	href="${pageContext.request.contextPath}/css/su/system/basic.css">
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/su/room/getShowRooms.css">
+<script type="text/javascript" src=""></script>
+<script type="text/javascript">
+	var currGroupId = 0;
+	var currStatusId = 0;
+	var currNumber = "";
+	var roomCount = ${};
+	var m_pageNumber = 1;
+	var m_pageSize = 10;
+</script>
 <script type="text/javascript">
 	$(function() {
 		$('#mm').menu({
@@ -29,7 +38,25 @@
 			prompt : '  按房间号搜索',
 			height : 24
 		});
-
+		$('#page').pagination({
+			total : roomCount,
+			pageSize:48,
+			pageList:[50,80,100],
+			onBeforeRefresh : function(pageNumber, pageSize) {
+				m_pageNumber = pageNumber;
+				m_pageSize = pageSize;
+				//table1_reload();
+			},
+			onSelectPage : function(pageNumber, pageSize) {
+				m_pageNumber = pageNumber;
+				m_pageSize = pageSize;
+				//table1_reload();
+			},
+			onChangePageSize : function(pageSize) {
+				m_pageSize = pageSize;
+				//table1_reload();
+			}
+		});
 	});
 </script>
 
@@ -53,12 +80,10 @@
 			id="s_rnumber"></input></span> <a class="panel-title"
 			style="margin-right: -5px;">房态选择：</a> <input id="f_rtype"
 			class="easyui-combobox"
-			data-options="editable:false,panelHeight:'120',width:'100',valueField:'id',textField:'roomTypeName',value:'显示全部',url:'${pageContext.request.contextPath}/su/system/getRoomTypeAll2'" />
+			data-options="editable:false,panelHeight:'120',width:'100',valueField:'id',textField:'text',value:'显示全部',url:'${pageContext.request.contextPath}/su/system/getRoomStatusAll2'" />
 
 	</div>
-	<div id="page" class="easyui-pagination"
-		data-options="total:2000,pageSize:10"
-		></div>
+	<div id="page"></div>
 
 	<div style="padding: 0 0 0 15px; margin-top: 50px;">
 		<%-- <div title="This is the<br>tooltip message." class="easyui-tooltip rrr" data-options="trackMouse:true">

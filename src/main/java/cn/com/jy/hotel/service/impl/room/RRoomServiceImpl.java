@@ -29,7 +29,6 @@ import cn.com.jy.hotel.domain.room.sub.RRoomSub2;
 import cn.com.jy.hotel.service.guest.GGuestRoomDetailService;
 import cn.com.jy.hotel.service.impl.BaseServiceImpl;
 import cn.com.jy.hotel.service.room.RRoomService;
-import cn.com.jy.hotel.service.room.RRoomTypeService;
 
 /**
  * @ClassName: RRoomServiceImpl
@@ -78,53 +77,74 @@ public class RRoomServiceImpl extends BaseServiceImpl<RRoom> implements
 	}
 
 	@Override
-	public List<RRoomSub2> getRoomsByConditions(Set<Short> groupIds, Short typeId,
-			Byte statusId, String roomNumber) throws Exception {
-		//第一个参数由controller处理
+	public List<RRoomSub2> getRoomsByConditions(Set<Short> groupIds,
+			Short typeId, Byte statusId, String roomNumber, Integer pageNumber,
+			Integer pageSize) throws Exception {
+		// 第一个参数由controller处理
 		if (typeId != null && typeId == 0) {
 			typeId = null;
 		}
 		if (roomNumber != null && "".equals(roomNumber.trim())) {
 			roomNumber = null;
 		}
-		List<RRoom> rRooms = rRoomDao.getRoomsByConditions(groupIds, typeId, statusId, roomNumber, true);
+		
+		PageResult pageResult = new PageResult(pageNumber, pageSize,
+				rRoomDao.getRoomsCountByConditions(groupIds, typeId, statusId,
+						roomNumber, true));
+		
+		List<RRoom> rRooms = rRoomDao.getRoomsByConditions(groupIds, typeId,
+				statusId, roomNumber, (int) pageResult.getLimitOffset(),
+				(int) pageResult.getPageSize(), true);
+		
 		List<RRoomSub2> rRoomSub2s = new ArrayList<RRoomSub2>();
 		for (RRoom rRoom : rRooms) {
 			RRoomSub2 sub2 = new RRoomSub2();
 			sub2.setId(rRoom.getId());
 			sub2.setRoomNumber(rRoom.getRoomNumber());
-			
+
 			String status = RoomStatusMap.getString(rRoom.getRoomStatus());
 			char[] charArray = status.toCharArray();
 			StringBuffer sb = new StringBuffer();
 			for (int i = 0; i < charArray.length; i++) {
-				if(i==charArray.length-1){
+				if (i == charArray.length - 1) {
 					sb.append(charArray[i]);
-				}else{
+				} else {
 					sb.append(charArray[i]);
 					sb.append("<br/>");
 				}
 			}
 			sub2.setRoomStatusName(sb.toString());
-			
+
 			sub2.setRoomTypeName(rRoom.getRRoomType().getRoomTypeName());
 			sub2.setMaxPeople(rRoom.getRRoomType().getMaxPeople());
-			
+
 			String groupName = "";
 			RRoomGroup rRoomGroup = rRoom.getRRoomGroup();
-			groupName = rRoomGroup.getGroupName()+groupName;
-			while(rRoomGroup.getParentId()!=0){
+			groupName = rRoomGroup.getGroupName() + groupName;
+			while (rRoomGroup.getParentId() != 0) {
 				rRoomGroup = rRoomGroupDao.getById(rRoomGroup.getParentId());
-				groupName = rRoomGroup.getGroupName()+"-"+groupName;
+				groupName = rRoomGroup.getGroupName() + "-" + groupName;
 			}
 			sub2.setGroupName(groupName);
-			
-			
-			
-			
+
 			rRoomSub2s.add(sub2);
 		}
 		return rRoomSub2s;
+	}
+
+	@Override
+	public Long getRoomsCountByConditions(Set<Short> groupIds, Short typeId,
+			Byte statusId, String roomNumber, boolean useCache)
+			throws Exception {
+		// 第一个参数由controller处理
+		if (typeId != null && typeId == 0) {
+			typeId = null;
+		}
+		if (roomNumber != null && "".equals(roomNumber.trim())) {
+			roomNumber = null;
+		}
+		return rRoomDao.getRoomsCountByConditions(groupIds, typeId, statusId,
+				roomNumber, useCache);
 	}
 
 }
