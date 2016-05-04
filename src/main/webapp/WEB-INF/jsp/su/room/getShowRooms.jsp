@@ -17,10 +17,7 @@
 	var currTypeId = 0;
 	var currStatusId = 0;
 	var currNumber = "";
-	var roomCount = $
-	{
-		roomCount
-	};
+	var roomCount = ${roomCount};
 	var m_pageNumber = 1;
 	var m_pageSize = 50;
 
@@ -31,7 +28,14 @@
 <script type="text/javascript">
 	var model = avalon.define({
 		$id : "roomController",
-		array : []
+		array : [],
+		click : function(e,id) {
+			alert(id)
+			$('#m33').menu("show", {
+				left : e.x,
+				top : e.y
+			});
+		}
 	})
 </script>
 <script type="text/javascript">
@@ -120,6 +124,9 @@
 				for ( var i in data) {
 					model.array.push(data[i])
 				}
+				setTimeout(function() {
+					$.parser.parse('#content');
+				}, 500);
 			},
 			error : function(e) {
 				$.messager.alert('警告', '获取房间失败');
@@ -133,6 +140,12 @@
 		<div id="0" data-options="iconCls:'icon-reload'">显示全部</div>
 		<div class="menu-sep"></div>
 		${rooms}
+	</div>
+
+	<div id="m33" class="easyui-menu" style="width: 120px;">
+		<div>New</div>
+		
+		<div>Exit</div>
 	</div>
 	<div class="panel-header"
 		style="position: fixed; left: 0; right: 0; top: 0; z-index: 999;">
@@ -153,10 +166,10 @@
 	<div id="page"></div>
 
 	<div style="padding: 0 0 0 15px; margin-top: 50px;"
-		ms-controller="roomController" ms-each-el="array">						<!-- {{el.tips}} -->
-		<div ms-attr-title="{{el.groupName}}" class="r_empty" ms-class="easyui-tooltip"
-			data-options="trackMouse:true" ms-attr-ids="{{el.id}}">
-			<div class="r_empty_in">
+		ms-controller="roomController" ms-each-el="array" id="content">
+		<div ms-attr-title="{{el.groupName}}" class="r_empty easyui-tooltip"
+			data-options="trackMouse:true">
+			<div class="r_empty_in" ms-mousedown="click($event,el.id)">
 				<span class="r_empty_type">{{el.roomTypeName}}</span>
 				<div class="r_empty_number">{{el.roomNumber}}</div>
 				<div class="r_empty_info">可住：{{el.maxPeople}}人</div>
@@ -170,6 +183,5 @@
 		</div>
 	</div>
 	<div style="height: 40px; clear: both;"></div>
-
 </body>
 </html>
