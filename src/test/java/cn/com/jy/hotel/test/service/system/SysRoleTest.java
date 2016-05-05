@@ -20,12 +20,14 @@ import org.junit.Test;
 
 import com.sun.tools.classfile.StackMapTable_attribute.same_frame;
 
+import cn.com.jy.hotel.domain.guest.GVipType;
 import cn.com.jy.hotel.domain.room.RRoom;
 import cn.com.jy.hotel.domain.room.RRoomGroup;
 import cn.com.jy.hotel.domain.room.RRoomPayMethod;
 import cn.com.jy.hotel.domain.room.RRoomType;
 import cn.com.jy.hotel.domain.system.SysPrivilege;
 import cn.com.jy.hotel.domain.system.SysRole;
+import cn.com.jy.hotel.service.guest.GVipTypeService;
 import cn.com.jy.hotel.service.room.RRoomGroupService;
 import cn.com.jy.hotel.service.room.RRoomPayMethodService;
 import cn.com.jy.hotel.service.room.RRoomService;
@@ -53,6 +55,9 @@ public class SysRoleTest extends BaseTest{
 	private RRoomService rRoomService;
 	@Resource
 	private RRoomPayMethodService rRoomPayMethodService;
+	
+	@Resource
+	private GVipTypeService gVipTypeService;
 	/* (non-Javadoc)
 	* <p>Title: add</p> 
 	* <p>Description: </p>  
@@ -192,6 +197,12 @@ public class SysRoleTest extends BaseTest{
 		date2.setDate(date2.getDate()+1);
 		for (int i = 0; i < 233; i++) {
 			rRoomPayMethodService.add(new RRoomPayMethod(rRoomTypeService.getById((short)4), "hh5--"+i, null, null, null,null, null, null, (byte)0, (byte)1, date, date2, new BigDecimal(300), null));
+		}
+	}
+	@Test
+	public void hh6() throws Exception{
+		for (int i = 0; i < 233; i++) {
+			gVipTypeService.add(new GVipType("会员类型"+i, (byte)(9.9*10), "哈哈哈", null));
 		}
 	}
 }

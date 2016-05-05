@@ -8,8 +8,11 @@
 */ 
 package cn.com.jy.hotel.dao.guest;
 
+import java.util.List;
+
 import cn.com.jy.hotel.dao.BaseDao;
 import cn.com.jy.hotel.domain.guest.GVipType;
+import cn.com.jy.hotel.domain.guest.sub.GVipTypeSub;
 
 /** 
  * @ClassName: GVipTypeDao 
@@ -19,5 +22,8 @@ import cn.com.jy.hotel.domain.guest.GVipType;
  *  
  */
 public interface GVipTypeDao extends BaseDao<GVipType>{
-
+	/**
+	 * 返回一个在hql里面new的对象
+	 */
+	public List<GVipTypeSub> queryReturnSub(Integer limitOffset, Integer limitCount,boolean useCache) throws Exception;
 }

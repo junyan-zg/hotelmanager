@@ -8,15 +8,19 @@
 */ 
 package cn.com.jy.hotel.service.impl.guest;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import cn.com.jy.hotel.dao.BaseDao;
 import cn.com.jy.hotel.dao.guest.GVipTypeDao;
+import cn.com.jy.hotel.domain.PageResult;
 import cn.com.jy.hotel.domain.guest.GVipType;
-import cn.com.jy.hotel.service.impl.BaseServiceImpl;
+import cn.com.jy.hotel.domain.guest.sub.GVipTypeSub;
 import cn.com.jy.hotel.service.guest.GVipTypeService;
+import cn.com.jy.hotel.service.impl.BaseServiceImpl;
 
 /** 
  * @ClassName: GVipTypeServiceImpl 
@@ -34,6 +38,17 @@ public class GVipTypeServiceImpl extends BaseServiceImpl<GVipType> implements GV
 	@Override
 	protected BaseDao<GVipType> getBaseDao() {
 		return gVipTypeDao;
+	}
+
+	@Override
+	public List<GVipTypeSub> getByPages(Integer pageNumber, Integer pageSize)
+			throws Exception {
+		Long count = getBaseDao().getCount(true);
+
+		PageResult pageResult = new PageResult(
+				pageNumber, pageSize, count);
+
+		return gVipTypeDao.queryReturnSub((int)pageResult.getLimitOffset(), (int)pageResult.getPageSize(), true);
 	}
 
 }

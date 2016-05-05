@@ -8,7 +8,10 @@
 */ 
 package cn.com.jy.hotel.service.guest;
 
+import java.util.List;
+
 import cn.com.jy.hotel.domain.guest.GVipType;
+import cn.com.jy.hotel.domain.guest.sub.GVipTypeSub;
 import cn.com.jy.hotel.service.BaseService;
 
 /** 
@@ -19,5 +22,5 @@ import cn.com.jy.hotel.service.BaseService;
  *  
  */
 public interface GVipTypeService extends BaseService<GVipType>{
-
+	public List<GVipTypeSub> getByPages(Integer pageNumber,Integer pageSize) throws Exception;
 }

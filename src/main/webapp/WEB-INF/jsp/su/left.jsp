@@ -203,7 +203,7 @@
     </tr>
     <tr height=20>
         <td align="left" width="30px"><img height=9 src="${pageContext.request.contextPath}/images/su/index/menu_icon.gif" width=9></td>
-        <td class="childTd"><a href="#" target=right>会员类型</a></td>
+        <td class="childTd"><a href="${pageContext.request.contextPath}/su/system/getVipTypes" target=right>会员类型</a></td>
     </tr>
     <tr height=20>
         <td align="left" width="30px"><img height=9 src="${pageContext.request.contextPath}/images/su/index/menu_icon.gif" width=9></td>
