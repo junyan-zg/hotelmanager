@@ -11,8 +11,9 @@
 <script type="text/javascript">
 	$(function() {
 		var body = document.getElementsByTagName("body")[0];
-			body.oncontextmenu = function() {
-				return true;
+			body.oncontextmenu = function(e) {
+				return false;
+			//e.preventDefault();
 			}
 	})
 </script>

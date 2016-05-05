@@ -26,15 +26,20 @@
 </script>
 
 <script type="text/javascript">
+	var currRoom;
+</script>
+
+<script type="text/javascript">
 	var model = avalon.define({
 		$id : "roomController",
 		array : [],
-		click : function(e,id) {
-			alert(id)
-			$('#m33').menu("show", {
-				left : e.x,
-				top : e.y
+		showMenu:function showMenu(e,id,i) {
+			currRoom = i;
+			$('#mm2').menu("show", {
+				left : e.clientX,
+				top : e.clientY
 			});
+			$(currRoom).addClass("dd");
 		}
 	})
 </script>
@@ -44,6 +49,15 @@
 			onClick : function(item) {
 				currGroupId = item.id;
 				loadData();
+			}
+		});
+		$('#mm2').menu({
+			onClick : function(item) {
+				//currGroupId = item.id;
+				//loadData();
+			},
+			onHide:function(){
+				$(currRoom).removeClass("dd");
 			}
 		});
 		$('#f_rtype').combobox({
@@ -87,7 +101,7 @@
 		});
 		loadData();
 	});
-
+	
 	function loadData() {
 		$.ajax({
 			type : "POST",
@@ -134,15 +148,20 @@
 		})
 	}
 </script>
+<style>
+.dd{
+	border-color: #0E2D6F
+}
+</style>
 </head>
-<body style="padding: 0;">
+<body style="padding: 0;-moz-user-select: none;" onselectstart="return false">
 	<div id="mm" class="easyui-menu" style="width: 100px">
 		<div id="0" data-options="iconCls:'icon-reload'">显示全部</div>
 		<div class="menu-sep"></div>
 		${rooms}
 	</div>
 
-	<div id="m33" class="easyui-menu" style="width: 120px;">
+	<div id="mm2" class="easyui-menu" style="width: 120px;">
 		<div>New</div>
 		
 		<div>Exit</div>
@@ -168,8 +187,8 @@
 	<div style="padding: 0 0 0 15px; margin-top: 50px;"
 		ms-controller="roomController" ms-each-el="array" id="content">
 		<div ms-attr-title="{{el.groupName}}" class="r_empty easyui-tooltip"
-			data-options="trackMouse:true">
-			<div class="r_empty_in" ms-mousedown="click($event,el.id)">
+			data-options="trackMouse:true" ms-mouseup="showMenu($event,el.id,this);">
+			<div class="r_empty_in">
 				<span class="r_empty_type">{{el.roomTypeName}}</span>
 				<div class="r_empty_number">{{el.roomNumber}}</div>
 				<div class="r_empty_info">可住：{{el.maxPeople}}人</div>
