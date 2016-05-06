@@ -120,7 +120,11 @@
 <table id=child4 style="display: none" cellspacing=0 cellpadding=0 width=145 border=0>
     <tr height=20>
         <td align="left" width="30px"><img height=9 src="${pageContext.request.contextPath}/images/su/index/menu_icon.gif" width=9></td>
-        <td class="childTd"><a href="#" target=right>添加会员</a></td>
+        <td class="childTd"><a href="${pageContext.request.contextPath}/su/guest/vip/getAddVip" target=right>添加会员</a></td>
+    </tr>
+    <tr height=20>
+        <td align="left" width="30px"><img height=9 src="${pageContext.request.contextPath}/images/su/index/menu_icon.gif" width=9></td>
+        <td class="childTd"><a href="${pageContext.request.contextPath}/su/guest/vip/getFindVip" target=right>查询会员</a></td>
     </tr>
     <tr height=20>
         <td align="left" width="30px"><img height=9 src="${pageContext.request.contextPath}/images/su/index/menu_icon.gif" width=9></td>

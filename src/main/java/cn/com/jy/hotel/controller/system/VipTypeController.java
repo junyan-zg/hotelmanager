@@ -53,6 +53,9 @@ public class VipTypeController {
 	@RequestMapping("/getVipTypeByPages/{pageNumber}/{pageSize}")
 	public List<GVipTypeSub> getByPages(@PathVariable Integer pageNumber,
 			@PathVariable Integer pageSize) throws Exception {
+		if (pageSize == 0) {
+			pageSize = null;
+		}
 		return gVipTypeService.getByPages(pageNumber, pageSize);
 	}
 

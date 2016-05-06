@@ -201,7 +201,7 @@ public class SysRoleTest extends BaseTest{
 	}
 	@Test
 	public void hh6() throws Exception{
-		for (int i = 0; i < 233; i++) {
+		for (int i = 0; i < 33; i++) {
 			gVipTypeService.add(new GVipType("会员类型"+i, (byte)(9.9*10), "哈哈哈", null));
 		}
 	}
