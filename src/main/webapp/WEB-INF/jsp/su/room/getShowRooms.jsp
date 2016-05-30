@@ -36,8 +36,8 @@
 		showMenu:function showMenu(e,id,i) {
 			currRoom = i;
 			$('#mm2').menu("show", {
-				left : e.clientX,
-				top : e.clientY
+				left : e.pageX,
+				top : e.pageY
 			});
 			$(currRoom).addClass("dd");
 		}

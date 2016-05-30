@@ -20,6 +20,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.druid.support.http.WebStatFilter.StatHttpServletResponseWrapper;
+
 /**
  * @ClassName: MyExceptionResolver
  * @Description: TODO
@@ -33,7 +35,6 @@ public class MyExceptionResolver implements HandlerExceptionResolver {
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex) {
-
 		String exInfo = null;
 		short state = 0;// 0源码返回，1跳转页面，2返回封装js
 		if (!(request.getHeader("accept").indexOf("application/json") > -1 || (request

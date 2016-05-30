@@ -15,7 +15,7 @@
 			<td width=260><img height=56
 				src="${pageContext.request.contextPath}/images/su/index/header_left.jpg"
 				width=260></td>
-			<td style="font-weight: bold; color: #fff; padding-top: 20px"
+			<td style="font-weight: bold; color: #fff; padding-top: 20px;display: none;"
 				align=middle>当前用户：admin &nbsp;&nbsp; <a style="color: #fff"
 				href="" target=main>修改口令</a> &nbsp;&nbsp; <a style="color: #fff"
 				onclick="if (confirm('确定要退出吗？')) return true; else return false;"
